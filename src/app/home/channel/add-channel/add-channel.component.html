@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create a new channel</h1>
+<form [formGroup]="addChannelForm" mat-dialog-content>
+  <span class="channel-description"> When you create a channel, you may allow viewer's to observe your desktop as you host your channel.
+  </span>
+  <div class="alert alert-danger" *ngIf='error.message' style="margin: 10px 0 20px 0">
+    {{error.message}}
+  </div>
+  <mat-form-field class="app-add-channel-title" >
+    <input matInput placeholder="Channel title" formControlName="title" [maxLength]="26">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Channel description" formControlName="description" [maxLength]="26">
+  </mat-form-field>
+  <div *ngIf='isPayedUser'>
+    <mat-checkbox formControlName="isPrivate">Is private?</mat-checkbox>
+  </div>
+</form>
+<div mat-dialog-actions [attr.align]="'end'">
+  <button mat-raised-button mdbBtn class="cancel-button" style="float:left" mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button mdbBtn color="info" style="float:right" (click)="addChannel()" mat-button cdkFocusInitial>Add</button>
+</div>

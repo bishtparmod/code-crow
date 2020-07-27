@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  code-crow-staging:
+    container_name: code-crow-staging
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '4041:4040'

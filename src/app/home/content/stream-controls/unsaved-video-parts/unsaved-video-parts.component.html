@@ -1,0 +1,166 @@
+<h3 class='text-center' style='margin-bottom: 15px;'>Unsaved videos</h3>
+
+<div *ngIf='playingVideoPart'>
+
+  <mat-card class="bar">
+    <div class='back-button'>
+      <button mat-icon-button (click)='stopVideoPart()'>
+        <mat-icon style="font-size: 12px;">arrow_back_ios</mat-icon>
+      </button>
+    </div>
+    <div class='action-buttons' *ngIf='!playingVideoPart.isProcessing'>
+      <button mat-icon-button matTooltip="Upload" matTooltipPosition="above" (click)='playingVideoPart.upload()'>
+        <mat-icon>publish</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="download" matTooltipPosition="above" (click)='playingVideoPart.download()'>
+        <mat-icon>get_app</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="delete" matTooltipPosition="above" (click)='playingVideoPart.delete()'>
+        <mat-icon style="color: #F00">delete</mat-icon>
+      </button>
+    </div>
+    <div *ngIf='playingVideoPart.isProcessing' class='action-buttons'>
+      <span>This video is being uploaded. <mat-spinner diameter="15" style='display: inline-block;'></mat-spinner>
+      </span>
+    </div>
+  </mat-card>
+
+  <vg-player>
+    <vg-overlay-play></vg-overlay-play>
+    <vg-buffering></vg-buffering>
+
+    <vg-scrub-bar>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+
+    <vg-controls>
+      <vg-play-pause></vg-play-pause>
+      <vg-playback-button></vg-playback-button>
+
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+      <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+      <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+      <vg-track-selector></vg-track-selector>
+      <vg-mute></vg-mute>
+      <vg-volume></vg-volume>
+
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin autoplay>
+      <source [src]="videoPartUrl" type="video/mp4">
+    </video>
+  </vg-player>
+</div>
+
+<div [hidden]='playingVideoPart'>
+  <div class="alert alert-danger" style='margin: 0;'>
+    Videos that aren't uploaded will be deleted after 14 days from the date of recording.
+  </div>
+
+  <mat-form-field style="width: 100%;">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="channel">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Channel </th>
+        <td mat-cell *matCellDef="let row"> {{row.channel.title}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon style="position: relative; top: 5px; margin-right: 5px;">create</mat-icon>
+          <span contenteditable="true" (blur)="row.editName($event)">{{row.name}}</span>
+        </td>
+      </ng-container>
+
+      <!-- Duration Column -->
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration </th>
+        <td mat-cell *matCellDef="let row"> {{toHHMMSS(row.duration)}} </td>
+      </ng-container>
+
+      <!-- Size In Column -->
+      <ng-container matColumnDef="size">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
+        <td mat-cell *matCellDef="let row"> {{row.size}} MB </td>
+      </ng-container>
+
+      <!-- Created at Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created At </th>
+        <td mat-cell *matCellDef="let row"> {{row.createdAt | date: 'short'}} </td>
+      </ng-container>
+
+      <!-- Delete In Column -->
+      <ng-container matColumnDef="deleteDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete in </th>
+        <td mat-cell *matCellDef="let row"> {{row.deleteIn}} Days </td>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let row">
+          <div
+            *ngIf='!row.isUploading && !row.isUploaded && !row.isInprogress && !row.isProcessing && !row.error && !row.isInprogress'>
+            <button mat-icon-button matTooltip="Preview" matTooltipPosition="above" (click)='row.play()'>
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Upload" matTooltipPosition="above" (click)='row.upload()'>
+              <mat-icon>publish</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Download" matTooltipPosition="above" (click)='row.download()'>
+              <mat-icon>get_app</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Delete" matTooltipPosition="above" (click)='row.delete()'>
+              <mat-icon style="color: #F00">delete</mat-icon>
+            </button>
+          </div>
+          <div *ngIf='!row.isConverted && !row.isConverting && !row.isInprogress'>
+            <button mat-icon-button matTooltip="Refresh" matTooltipPosition="above" (click)='row.process()'>
+              <mat-icon>refresh</mat-icon>
+            </button>
+          </div>
+          <div *ngIf='row.error'>
+            <span style="color: red">{{row.error}}</span>
+          </div>
+          <div *ngIf='row.isUploading'>
+            <span>This video is being uploaded. <mat-spinner diameter="15" style='display: inline-block;'></mat-spinner>
+            </span>
+          </div>
+          <div *ngIf='row.isProcessing'>
+            <span>This video is being processed for upload. <mat-spinner diameter="15" style='display: inline-block;'>
+              </mat-spinner>
+            </span>
+          </div>
+          <div *ngIf='row.isInprogress'>
+            <span>This video is being recorded. <mat-spinner diameter="15" style='display: inline-block;'></mat-spinner>
+            </span>
+          </div>
+          <div *ngIf='row.isUploaded'>
+            <span>Video has been uploaded.</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

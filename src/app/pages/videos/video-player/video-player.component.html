@@ -1,0 +1,116 @@
+<mat-spinner *ngIf='!video' diameter='60' style="margin: 50px auto"></mat-spinner>
+
+<div *ngIf='video && videoURL' class='container-fluid custom-scroll' style="background-color: #202235; overflow-y: scroll; height: 100%">
+  <div [class.row]='video.playlist' style="margin: 0 100 50">
+    <div [class.col-9]='video.playlist'>
+      <vg-player (onPlayerReady)="onPlayerReady($event)">
+        <vg-overlay-play></vg-overlay-play>
+        <vg-buffering></vg-buffering>
+
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-controls>
+          <vg-play-pause></vg-play-pause>
+          <vg-playback-button></vg-playback-button>
+
+          <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+          <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-track-selector></vg-track-selector>
+          <vg-mute></vg-mute>
+          <vg-volume></vg-volume>
+
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+
+        <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin autoplay>
+          <source [src]="videoURL" type="video/mp4">
+        </video>
+      </vg-player>
+
+      <div>
+        <mat-tab-group>
+
+          <mat-tab label="Info">
+            <mat-card style='padding: 15px 20px'>
+              <h2 style="margin: 0; font-family: 'Roboto', serif; font-size: 28px;">{{video.stream.title}}</h2>
+              <div class='row'>
+                <div class="views col-9" style='margin-top: 15px;'>
+                  <p>{{views}} Views</p>
+                </div>
+                <div class="like-tools col-3 col-push-3 row">
+                  <div class="col-4 floatRight text-center">
+                    <span style="display: block;">{{dislikes}}</span>
+                    <button mat-icon-button (click)="likeVideo(false)">
+                      <mat-icon>thumb_down</mat-icon>
+                    </button>
+                  </div>
+                  <div class="col-4 text-center">
+                    <span style="display: block;">{{likes}}</span>
+                    <button mat-icon-button (click)="likeVideo(true)">
+                      <mat-icon>thumb_up</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style='position: relative; top: -25px;'>
+                <div class="col-9"></div>
+                <div class="like-overview col-2">
+                  <div class="like-green" [style.width]="(likes / totalLikes) * 100 + '%'"></div>
+                  <div class="unlike-red" [style.width]="(dislikes / totalLikes) * 100 + '%'"></div>
+                </div>
+              </div>
+            </mat-card>
+          </mat-tab>
+
+          <mat-tab label="Comments">
+            <mat-card>
+              <div class='row' style="padding: 5px 40px;">
+                <mat-form-field style='width: 100%;'>
+                  <textarea matInput [(ngModel)]='comment' placeholder="Write a comment." required></textarea>
+                </mat-form-field>
+              </div>
+              <div class="row text-center" style='padding: 0 35%'>
+                <button type="submit" (click)='addComment()' mat-button class='add-comment'
+                  class="comment-button">Comment</button>
+              </div>
+              <div class="comments" style='margin-top: 15px;border-top: 1px solid #DEDEDE;'>
+                <div class="comment" *ngFor='let comment of video.comments'>
+                  <div class="comment-owner" style="padding: 15px 0">
+                    <div class="avatar">
+                      <img [src]="comment.user?.avatar" alt="User Image">
+                    </div>
+                    <div class="name" style='display: inline-block'>
+                      <h4 style="font-size: 15px;font-weight: bold; margin: 0;position: relative;left: 10px;">
+                        {{comment.user?.firstName}}</h4>
+                      <p style="margin: 0; color: #333; position: relative; left: 10px; font-size: 15px;">
+                        {{comment.body}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+
+    <div class="col-3" *ngIf='video.playlist && video.playlist.videos && video.playlist.videos.length'>
+      <mat-card clas='playlist'>
+        <h3 style='font-size: 21px; display: inline-block; border-bottom: 1px solid #DEDEDE;padding-bottom: 4px;'>
+          {{video.playlist.title}}</h3>
+        <!-- <app-creator-playlists-video-item style='cursor: pointer;' *ngFor='let video of video.playlist.videos'
+          [video]='video' [hideButtons]='1' [hideStatistics]='1' (click)='playVideo(video._id)'>
+        </app-creator-playlists-video-item> -->
+      </mat-card>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>
+  <mat-icon class="app-news-dialog-thumbnail">{{news.thumbnail}}</mat-icon>{{news.title}}
+</h1>
+<div mat-dialog-content>
+  <!-- <img class="app-news-dialog-image" [src]="img" alt="News Image" *ngIf="news.image"> -->
+  <!-- <header [style.background-image]='img' *ngIf="news.image"></header> -->
+  <div class="app-news-dialog-detail" [innerHTML]='news.body'></div>
+  <span class="app-news-dialog-createdAt">{{news.createdAt | date:"MMM dd, yyyy"}}</span>
+</div>

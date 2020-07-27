@@ -1,0 +1,44 @@
+<form [formGroup]="cardForm" class="row" style="padding: 15px;">
+  <div class="text-center app-add-payment-title">Billing Details</div>
+  <div class="row">
+    <mat-form-field class="col-6 required">
+      <input required matInput placeholder="Name on Card" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class='col-6 required'>
+      <input required matInput placeholder="Country" formControlName="address_city">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class='col-12 required'>
+      <input required matInput placeholder="Address Line 1" formControlName="address_line1">
+    </mat-form-field>
+    <mat-form-field class='col-12'>
+      <input matInput placeholder="Address Line 2" formControlName="address_line2">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-6 required">
+      <input required matInput placeholder="State" formControlName="address_state">
+    </mat-form-field>
+    <mat-form-field class="col-6 required">
+      <input required matInput placeholder="Zip" formControlName="address_zip">
+    </mat-form-field>
+  </div>
+  <div class="row app-add-payment-stripe-card">
+    <stripe-card class="col-12" #stripeCard (catch)="onStripeError($event)" (tokenChange)="setStripeToken($event)"
+      (sourceChange)="setStripeSource($event)"></stripe-card>
+  </div>
+  <div class='text-center' style="margin-top: 15px">
+    <button mat-raised-button mdbBtn color="info" rounded="true" mdbWavesEffect type="button" mat-button type="button"
+      (click)="stripeCard.createToken(cardForm.value)" *ngIf='!loading' style="margin: 20px 0px;">Add Card</button>
+
+    <mat-spinner *ngIf='loading' style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+
+    <div *ngIf='cardAdded' style='margin-top: 1rem;' class="alert alert-success">Payment Method added successfully.
+    </div>
+    <div *ngIf='error' style='margin-top: 1rem;' class="alert alert-danger">{{error}}</div>
+
+    <div style='color: #F00; font-size: 10px'>*Your card might get charged for a small amount ($1.00 maximum) in order
+      to get verified, however, this amount will be automatically reverted back to you within 1 business day.</div>
+  </div>
+</form>

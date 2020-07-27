@@ -1,0 +1,33 @@
+<div *ngIf='showingChannels' class="row app-channels-container">
+  <div class="col-2 custom-scroll"
+    style="height: calc(100vh - 64px); overflow-y: scroll; border-right: 1px solid #5a5a5a; padding-left: 25px;">
+    <app-friends [friendList]='friendService.friendsList'></app-friends>
+  </div>
+  <div class="col-10">
+    <div class="md-form app-channel-search-bar sticky">
+      <input type="search" [(ngModel)]="searchTitle" (keyup)="searchChannels()" placeholder="Search channels">
+      <button mat-raised-button (click)="showAddChannelDialog()" mdbBtn color="info" style="margin-left:25px;"
+        rounded="true" mdbWavesEffect type="button">
+        <mat-icon>add</mat-icon>
+        <span>Create</span>
+      </button>
+    </div>
+    <div *ngIf='chatService.isGettingChannels'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+    <div *ngIf='!chatService.isGettingChannels' class="row">
+      <div *ngFor="let item of chatService.allChannels | filter: searchTitle" class="col-3">
+        <app-channel-item [channel]="item">
+        </app-channel-item>
+      </div>
+    </div>
+    <div class="row app-content-messagelist">
+      <div class="custom-scroll" fxLayout="row">
+        <div class="app-content-friendchat height-fix" *ngFor='let friend of friendChatService.activeTabs'>
+          <app-friend-chat [friend]='friend'>
+          </app-friend-chat>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

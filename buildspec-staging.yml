@@ -1,0 +1,74 @@
+version: 0.2
+
+phases:
+  install:
+    #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
+    #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
+    runtime-versions:
+      nodejs: 10
+      docker: 18
+    commands:
+       - npm i @angular/cli
+       - npm install
+  pre_build:
+    commands:
+       - echo Logging in to Amazon ECR...
+       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+       - echo Running api unit tests
+       - npm run apitest
+  build:
+    commands:
+       - echo Build started on `date`
+       - npm run ng build --prod --configuration=staging
+       - echo Preparing the Docker build directory
+       - mkdir ./output
+       - mv ./server ./output/
+       - mv ./dist ./output/
+       - mv package.json ./output/
+       - mv package-lock.json ./output/       
+       - mv Dockerfile ./output/
+       - cd ./output
+       - echo Building the Docker image...          
+       - docker build --build-arg NODE_ENV_=$NODE_ENV 
+         --build-arg SERVER_PORT_=$SERVER_PORT 
+         --build-arg JWT_SECRET_=$JWT_SECRET 
+         --build-arg MONGO_HOST_=$MONGO_HOST 
+         --build-arg MEAN_FRONTEND_=$MEAN_FRONTEND 
+         --build-arg MONGO_URI_=$MONGO_URI 
+         --build-arg GITHUB_CLIENT_ID_=$GITHUB_CLIENT_ID 
+         --build-arg GITHUB_CLIENT_SECRET_=$GITHUB_CLIENT_SECRET 
+         --build-arg GITHUB_CALLBACK_URL_=$GITHUB_CALLBACK_URL 
+         --build-arg BITBUCKET_CLIENT_ID_=$BITBUCKET_CLIENT_ID 
+         --build-arg BITBUCKET_CLIENT_SECRET_=$BITBUCKET_CLIENT_SECRET 
+         --build-arg BITBUCKET_CALLBACK_URL_=$BITBUCKET_CALLBACK_URL 
+         --build-arg GITLAB_CLIENT_ID_=$GITLAB_CLIENT_ID 
+         --build-arg GITLAB_CLIENT_SECRET_=$GITLAB_CLIENT_SECRET 
+         --build-arg GITLAB_CALLBACK_URL_=$GITLAB_CALLBACK_URL 
+         --build-arg TWILIO_CHAT_SERVICE_SID_=$TWILIO_CHAT_SERVICE_SID 
+         --build-arg TWILIO_ACCOUNT_SID_=$TWILIO_ACCOUNT_SID 
+         --build-arg TWILIO_API_KEY_=$TWILIO_API_KEY 
+         --build-arg TWILIO_API_SECRET_=$TWILIO_API_SECRET 
+         --build-arg EMAIL_ADDRESS_=$EMAIL_ADDRESS 
+         --build-arg EMAIL_PASSWORD_=$EMAIL_PASSWORD 
+         --build-arg CODE_CROW_EMAIL_=$CODE_CROW_EMAIL 
+         --build-arg STRIPE_PK_=$STRIPE_PK
+         --build-arg STRIPE_SK_=$STRIPE_SK 
+         --build-arg S3_BUCKET_VIDEOS_=$S3_BUCKET_VIDEOS 
+         --build-arg S3_BUCKET_NEWS_=$S3_BUCKET_NEWS
+         --build-arg S3_BUCKET_LEGAL_DOCS_=$S3_BUCKET_LEGAL_DOCS
+         --build-arg S3_BUCKET_ATTACHMENTS_=$S3_BUCKET_ATTACHMENTS
+         --build-arg AWS_ACCESS_KEY_=$AWS_ACCESS_KEY 
+         --build-arg AWS_ACCESS_SECRET_=$AWS_ACCESS_SECRET 
+         --build-arg FFMPEG_PATH_=$FFMPEG_PATH 
+         -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+  post_build:
+    commands:       
+       - echo Build completed on `date`
+       - echo Pushing the Docker image...
+       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+artifacts:
+  files:
+       - .ebextensions
+       - .ebextensions/https-redirect-docker-sc.config
+       - Dockerrun.aws.json

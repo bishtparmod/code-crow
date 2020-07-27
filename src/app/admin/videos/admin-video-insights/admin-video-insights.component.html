@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-3">
+    <div class='members-registered'>
+      <div class="info">
+        <span class='number'>{{videos.length}}</span>
+        <span class='desc'>All Videos</span>
+      </div>
+      <div style="display: block;">
+        <canvas baseChart height="70" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class='members-online'>
+      <div class="info">
+        <span class='number'>{{videos.length}}</span>
+        <span class='desc'>Most Viewed Video</span>
+      </div>
+      <div style="display: block;">
+        <canvas baseChart height="70" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="channels">
+      <div class="info">
+        <span class='number'>{{totalViews}}</span>
+        <span class='desc'>Total Views</span>
+      </div>
+      <div style="display: block;">
+        <canvas baseChart height="70" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="texts">
+      <div class="info">
+        <span class='number'>{{totalWatchTime}}</span>
+        <span class='desc'>Total Watch Time</span>
+      </div>
+      <div style="display: block;">
+        <canvas baseChart height="70" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Exit Channel</h1>
+<div mat-dialog-content>
+  <span class="channel-description">You're the host of <strong>{{data.logoutChannel}}</strong> channel, logging out will delete the channel and all the messages in it. Are you sure you want to continue?</span>
+</div>
+<div mat-dialog-actions [attr.align]="'end'">
+  <button mat-raised-button mdbBtn class="cancel-button" style="float:left" mat-button
+    (click)="onNoClick()">No</button>
+  <button mat-raised-button mdbBtn color="info" style="float:right" (click)="exitChannel()" mat-button
+    [mat-dialog-close]="data" cdkFocusInitial [routerLink]="['/']">Yes</button>
+</div>

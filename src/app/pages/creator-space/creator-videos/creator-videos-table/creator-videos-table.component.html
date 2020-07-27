@@ -1,0 +1,94 @@
+<mat-card>
+  <div class="card-title" *ngIf='!video'>
+    <div class="card-title" style="padding: 0; margin: 0;">
+      <mat-icon style='cursor: pointer;' (click)='selectVideo()'>add</mat-icon>
+      <span style="position: relative;top: -6px;left: 10px;">Your Videos</span>
+      <input type="file" #fileInput (change)='uploadVideo($event)' accept="video/*" class='hide'>
+    </div>
+  </div>
+
+  <div class="card-title" style="padding-bottom: 0" *ngIf='video'>
+    <mat-icon style='cursor: pointer;' (click)='toggleView()'>keyboard_arrow_left</mat-icon>
+    <span style="position: relative;top: -6px;left: 10px;"><strong>{{video.title}}</strong> Statistics</span>
+  </div>
+
+  <div class="card-body" *ngIf='video'>
+    <div class='graph' style="display: block;">
+      <canvas baseChart height="250px" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+        [chartType]="lineChartType"></canvas>
+    </div>
+  </div>
+
+  <div class="card-body" >
+    <video class='hide' #videoPreview [src]='videoURL'></video>
+    <div class="upload-progress" *ngIf='progress'>
+      <div class="title">
+        Uploading <strong>{{file.name}}</strong> - <i>{{progress}}%</i>
+      </div>
+      <mat-progress-bar color="primary" mode="buffer" [value]="progress" bufferValue="0">
+      </mat-progress-bar>
+    </div>
+    <div class="alert alert-success" *ngIf='videoUploaded'>
+      Video has been uploaded successfully.
+    </div>
+    <mat-form-field style="width: 100%">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" style="width: 100%">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Created At </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'short'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="views">
+        <th mat-header-cell *matHeaderCellDef> Views </th>
+        <td mat-cell *matCellDef="let element"> {{element.totalViews}} </td>
+      </ng-container>
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef> Rating </th>
+        <td mat-cell *matCellDef="let element"> {{element.totalRate || 0}}% </td>
+      </ng-container>
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef> Duration </th>
+        <td mat-cell *matCellDef="let element"> {{element.stream.duration}} (s) </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)='deleteVideo(element._id)'>
+            <mat-icon style='color: #e74c3c'>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Public </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]='element.status' (change)='activate($event, element._id)'></mat-slide-toggle>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Statistics </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)='showStatistics(element)'>
+            <mat-icon>show_chart</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="download">
+        <th mat-header-cell *matHeaderCellDef> Download </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)='downloadVideo(element)'>
+            <mat-icon>get_app</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</mat-card>

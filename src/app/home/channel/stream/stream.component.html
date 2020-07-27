@@ -1,0 +1,17 @@
+<h5 class='text-center'>Live Stream</h5>
+<div class='row'>
+  <div class='col-6 example-box' #videoPreview></div>
+  <div style='visibility: hidden;' #audioPreview></div>
+  <div class="col-6">
+    <form [formGroup]="streamForm">
+      <mat-form-field style='width: 100%'>
+        <input type="text" matInput formControlName='title' placeholder="title">
+      </mat-form-field>
+      <button mat-button (click)='shareToTwillio()' *ngIf='!isLoading && !chatService.hostLocalVideoTrack'>Start
+        Streaming</button>
+      <div *ngIf='isLoading'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+    </form>
+  </div>
+</div>

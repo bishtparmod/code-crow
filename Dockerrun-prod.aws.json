@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "265534569559.dkr.ecr.us-east-1.amazonaws.com/code-crow-master:Latest"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 4040,
+      "HostPort": 80
+    }
+  ]
+}

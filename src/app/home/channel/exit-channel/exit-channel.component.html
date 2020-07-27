@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Joinning new channel</h1>
+<div mat-dialog-content>
+  <span class="channel-description">Are you sure you want to logout from <strong>{{data.logoutChannel}}</strong> channel and login to <strong>{{data.loginChannel}}</strong> channel?
+  </span>
+</div>
+<div mat-dialog-actions [attr.align]="'end'">
+  <button mat-raised-button mdbBtn class="cancel-button" style="float:left" mat-button
+    (click)="onNoClick()">No</button>
+  <button mat-raised-button mdbBtn color="info" style="float:right" (click)="exitChannel()" mat-button
+    [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+</div>

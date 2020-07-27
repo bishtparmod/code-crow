@@ -1,0 +1,93 @@
+.full-width {
+  table-layout: auto;
+  width: 100%;
+}
+
+.app-frienditem {
+  float: left;
+  width: 94%;
+  margin: 10px 0 0 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  cursor: pointer;
+  background-color: #181b29;
+}
+
+.app-frienditem-avatar {
+  float: left;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 5px;
+}
+
+.app-frienditem-text {
+  width: 130;
+  height: 60px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.app-frienditem-name {
+  color: #faebd7;
+}
+
+.app-frienditem-last-message {
+  width: auto;
+  color: gray;
+}
+
+.app-frienditem-status-online {
+  height: 100%;
+  width: 5px;
+  background-color: greenyellow;
+  margin-right: 8px;
+}
+
+.app-frienditem-status-offline {
+  height: 100%;
+  width: 5px;
+  background-color: red;
+  margin-right: 8px;
+}
+
+.selected {
+  border: 1px solid #4285f4;
+  box-shadow: 0 0 0px 0px #4285f4;
+}
+
+.app-frienditem-td {
+  height: 100%;
+}
+
+.app-friends-search-bar {
+  position: sticky;
+  width: 100%;
+  padding: 10 2;
+  background-color: #ffffff;
+}
+
+.sticky {
+  top: 0px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.channel-description {
+  color: rgb(60, 0, 128) !important;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.cancel-button {
+  background-color: rgb(218, 218, 218) !important;
+}
+
+.app-add-channel-title {
+  margin-top: 10px;
+}

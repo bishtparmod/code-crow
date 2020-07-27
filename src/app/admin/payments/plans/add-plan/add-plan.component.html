@@ -1,0 +1,89 @@
+<section>
+  <div class="section-body">
+    <form [formGroup]='planForm'>
+      <section formGroupName='product'>
+        <div class="section-title">Plan Info</div>
+        <div class="section-body">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field style='width: 100%'>
+                <input formControlName='name' matInput required type="text" placeholder="Name">
+              </mat-form-field>
+            </div>
+            <div class='col-6'>
+              <mat-form-field style='width: 100%'>
+                <mat-label>Type</mat-label>
+                <mat-select matNativeControl required formControlName='type'>
+                  <mat-option value="service">Service</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <section>
+          <div class="section-title">
+            <mat-icon style='cursor: pointer;' (click)='addAttribute()'>add</mat-icon>
+            <span style="position: relative;top: -6px;left: 10px;">Benefits</span>
+          </div>
+          <div class="section-body" formArrayName="attributes">
+            <div class="row" *ngFor='let item of planForm.get("product.attributes")["controls"]; let i = index'>
+              <div class="col-8">
+                <mat-form-field style='width:100%'>
+                  <input type="text" matInput placeholder="e.g. unlimited streaming time." [formControlName]='i'>
+                </mat-form-field>
+              </div>
+              <div class="col-4">
+                <button mat-icon-button (click)='removeAttribute(i)' style='position: relative; top: 10px;'>
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section>
+        <div class="section-title">Plan Pricing</div>
+        <div class="section-body">
+          <div class="row" style='margin-bottom: 10px'>
+            <div class="col-3">
+              <mat-form-field style="width: 100%">
+                <input matInput formControlName='amount' placeholder='Price' type="number" min='0'>
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <mat-form-field style="width: 100%">
+                <input matInput formControlName='interval_count' placeholder='Duration Count' type="number" min='0'>
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <mat-form-field style="width: 100%">
+                <mat-label>Duration Count</mat-label>
+                <mat-select formControlName='interval'>
+                  <mat-option value='day'>Day</mat-option>
+                  <mat-option value='week'>Week</mat-option>
+                  <mat-option value='month'>Month</mat-option>
+                  <mat-option value='year'>Year</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <mat-form-field style="width: 100%">
+                <input matInput formControlName='trial_period_days' placeholder='Trial Period Days' type="number"
+                  min='0'>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="text-center" *ngIf='!isLoading'>
+        <button class='btn btn-success' mat-button (click)='addPlan()'>Add Plan</button>
+      </div>
+      <div *ngIf='isLoading'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+      <div class="alert alert-success" *ngIf='isAdded' style='margin-top: 10px'>Plan added successfully.</div>
+      <div class="alert alert-danger" *ngIf='error' style='margin-top: 10px'>An error has occured, please try again
+        shortly.</div>
+    </form>
+  </div>
+</section>

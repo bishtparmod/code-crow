@@ -1,0 +1,161 @@
+<div class="app-message" *ngIf="Username !== Sender" (mouseenter)="isHover=true" (mouseleave)="isHover=false">
+    <div class="app-message-userinfo-left" *ngIf="wasPreviousMsgSameSender() == false && Avatar && !wasPreviousMsg">
+        <!-- <mat-icon class="app-message-sender-menu-left" >more_vert</mat-icon> -->
+        <img class="app-message-sender-avatar-left" [src]="Avatar" alt="channel_avatar" />
+        <div class="app-message-sender-name-left">
+            {{Sender}}
+        </div>
+    </div>
+
+    <div class="app-message-userinfo-left" *ngIf="wasPreviousMsgSameSender() == false && Avatar && wasPreviousMsg">
+        <mat-icon class="app-message-sender-menu-left" [matMenuTriggerFor]="userOptionsMenu">more_vert</mat-icon>
+        <img class="app-message-sender-avatar-left" [src]="Avatar" alt="channel_avatar" [matMenuTriggerFor]="userOptionsMenu" />
+        <div class="app-message-sender-name-left" [matMenuTriggerFor]="userOptionsMenu">
+            {{Sender}}
+        </div>
+    </div>
+
+    <div *ngIf="!Image">
+        <div *ngIf="!File">
+            <p class="app-message-content-left">
+                {{Content}}
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="Image">
+        <img class="image-attachment app-message-content-left" src="{{ Image }}" alt="{{ Image }}" />
+        <!-- <p class="app-message-content-left">
+      <img class="image-attachment" src="{{ Image }}" alt="{{ Image }}" />
+      {{Content}}
+    </p> -->
+    </div>
+
+    <div *ngIf="File">
+        <p class="app-message-content-left">
+            <img class="image-attachment" src="https://www.materialui.co/materialIcons/file/attachment_white_192x192.png" alt="{{ File }}" style="margin-right: 6px; width: 50px; height: 50px;" /> {{Content}}
+            <a href="{{ File }}" target="_blank" style="color: white;">{{ FileName }}</a>
+        </p>
+    </div>
+
+    <div class="app-message-createdate">
+        <span class="app-message-createdate-left" *ngIf="isHover">
+            {{When | date:'short'}}
+        </span>
+    </div>
+</div>
+
+<div class="app-message" [ngClass]="wasPreviousMsg ? 'friend-chat-message' : 'friend-chat-message'" *ngIf="Username == Sender" (mouseenter)="isHover=true" (mouseleave)="isHover=false">
+    <div class="app-message-userinfo-right" *ngIf="wasPreviousMsgSameSender() == false && Avatar">
+        <mat-icon class="app-message-sender-menu-right" *ngIf='!isMyMessage && wasPreviousMsg'>more_vert
+        </mat-icon>
+        <img class="app-message-sender-avatar-right" [src]="Avatar" alt="channel_avatar" *ngIf='!isMyMessage' />
+        <img class="app-message-sender-avatar-right" [src]="Avatar" alt="channel_avatar" *ngIf='isMyMessage' />
+        <div class="app-message-sender-name-right">
+            {{ Sender }}
+        </div>
+    </div>
+    <div *ngIf="!Image" class="upper-div-message">
+        <div *ngIf="!File">
+            <div class="row">
+                <div class="col-2 app-message-delete-button-container">
+                    <button *ngIf="isHover" mat-button (click)="deleteMessage()" class="app-message-delete-button">
+                        <mat-icon>
+                            delete
+                        </mat-icon>
+                    </button>
+                </div>
+                <div class="col-10 app-message-message-container">
+                    <p class="app-message-content-right">
+                        {{ Content }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="Image" class="upper-div-message">
+        <div class="row">
+            <div class="col-2 app-message-delete-button-container">
+                <button *ngIf="isHover" mat-button (click)="deleteMessage()" class="app-message-delete-button">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="col-10 app-message-message-container">
+                <img class="image-attachment app-message-content-right" src="{{ Image }}" alt="{{ Image }}" />
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="File" class="upper-div-message">
+        <div class="row">
+            <div class="col-2 app-message-delete-button-container">
+                <button *ngIf="isHover" mat-button (click)="deleteMessage()" class="app-message-delete-button">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="col-10 app-message-message-container">
+                <p class="app-message-content-right">
+                    {{Content}}
+                    <a href="{{ File }}" target="_blank" style="color: white;">{{ FileName }}</a>
+                    <img class="image-attachment" src="https://www.materialui.co/materialIcons/file/attachment_white_192x192.png" alt="{{ File }}" style="margin-right: 6px; width: 50px; height: 50px;" />
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="app-message-createdate">
+        <span class="app-message-createdate-right" *ngIf="isHover">
+            {{When | date:'short'}}
+        </span>
+    </div>
+</div>
+
+<mat-menu #userOptionsMenu="matMenu">
+    <section class="user-menu mat-menu-content">
+
+        <!-- <div class="dark-menu-item" (click)="showDonateDialog()" *ngIf='isOwnerMessage'>
+      <mat-icon>local_atm</mat-icon>
+      <span class="nav-caption"> Donate to {{Sender}} </span>
+    </div> -->
+
+        <div class="dark-menu-item" (click)="sendFriendRequest()" *ngIf='!areUsersFriends'>
+            <mat-icon>person_add</mat-icon>
+            <span class="nav-caption"> Add {{Sender}} </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="cancelFriendRequest()" *ngIf='friend && friend.status == 1'>
+            <mat-icon>person_add_disabled</mat-icon>
+            <span class="nav-caption"> Cancel Friend Request </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="acceptFriendRequest()" *ngIf='friend && friend.status == 2'>
+            <mat-icon>how_to_reg</mat-icon>
+            <span class="nav-caption"> Accept Friend Request </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="declineFriendRequest()" *ngIf='friend && friend.status == 2'>
+            <mat-icon>person_add_disabled</mat-icon>
+            <span class="nav-caption"> Decline Friend Request </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="openFriendChat()" *ngIf='friend && friend.status == 3'>
+            <mat-icon>chat_bubble_outline</mat-icon>
+            <span class="nav-caption"> Message {{Sender}} </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="removeFriend()" *ngIf='friend && friend.status == 3'>
+            <mat-icon>remove</mat-icon>
+            <span class="nav-caption"> Unfriend {{Sender}} </span>
+        </div>
+
+        <div class="dark-menu-item" (click)="blockUser()">
+            <mat-icon>block</mat-icon>
+            <span class="nav-caption"> Block {{Sender}} </span>
+        </div>
+
+    </section>
+</mat-menu>

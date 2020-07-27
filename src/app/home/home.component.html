@@ -1,0 +1,35 @@
+<div class="app-container container p-1 h-100" *ngIf='isConnected'>
+  <div class="row m-sm-0  h-100">
+    <mat-tab-group headerPosition="below">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="app-channel-tab-icon">personal_video</mat-icon>
+          <span>Channels</span>
+        </ng-template>
+        <div (scroll)="onScroll($event)" class="app-channel-holder col-sm mb-2 m-sm-2 custom-scroll"
+          style="border-right: 1px solid #5a5a5a; position: relative;" [hidden]='!chatService.isShowingChat'>
+          <app-channel></app-channel>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="app-channel-tab-icon">supervised_user_circle</mat-icon>
+          <span [matBadge]="notificationCounts" matBadgePosition="above after" matBadgeColor="warn"
+            matBadgeOverlap="false"> Friends
+          </span>
+        </ng-template>
+        <div (scroll)="onScrollFriends($event)" class="app-channel-holder col-sm mb-2 m-sm-2 custom-scroll"
+          style="border-right: 1px solid #5a5a5a; position: relative;" [hidden]='!chatService.isShowingChat'>
+          <app-friends [friendList]='friendList'></app-friends>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="app-main col-lg mb-2 m-sm-2">
+      <app-content></app-content>
+    </div>
+    <div class="app-chat-holder col-lg-3 ml-auto m-sm-2 mr-sm-0 p-2 d-flex flex-column custom-scroll"
+      *ngIf='chatService.isShowingChat && chatService.currentChannel' style="border-left: 1px solid #5a5a5a">
+      <app-chat></app-chat>
+    </div>
+  </div>
+</div>

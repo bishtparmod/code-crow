@@ -1,0 +1,29 @@
+<mat-card>
+  <div class="card-title">Site Settings</div>
+  <div class="card-body">
+    <mat-card>
+      <div class="card-title">Maintenance</div>
+      <div class="card-body row">
+        <div class="col-sm-7 app-site-settings-maintenance-content" [formGroup]='maintenanceSettingForm'>
+          <div class="row">
+            <mat-slide-toggle formControlName='isEnabled' class="app-site-settings-maintenance-toggle" [checked]="isMaintenanceEnabled">Toggle Maintenance Mode
+            </mat-slide-toggle>
+          </div>
+          <div class="row">
+            <mat-form-field class="app-site-settings-maintenance-input">
+              <textarea matInput formControlName='message' placeholder="Message" rows="6"
+                cols="40" [(ngModel)]='maintenanceMessage'></textarea>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <button mat-raised-button (click)="setMaintenanceMode()" mdbBtn color="info"
+              rounded="true" mdbWavesEffect type="button">
+              <mat-icon>send</mat-icon>
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</mat-card>

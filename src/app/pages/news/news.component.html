@@ -1,0 +1,11 @@
+<div class="app-news-list-container">
+  <div class="app-news-list-item scrollbar-bordered-success thin">
+    <div *ngFor="let item of news">
+      <app-news-item [userNews]="item">
+      </app-news-item>
+    </div>
+    <div class="text-center" style='margin-top: 10px; margin-bottom: 10px;'>
+      <button style='margin-top: 10px;' (click)='loadMoreNews()' mat-button>Load More</button>
+    </div>
+  </div>
+</div>

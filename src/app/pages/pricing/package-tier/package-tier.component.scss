@@ -1,0 +1,81 @@
+mat-card {
+  background-color: #2980b9
+}
+
+div.card-title {
+  text-align: center;
+  color: #FFF;
+  font-size: 27px;
+  text-transform: uppercase;
+}
+
+div.card-price {
+  text-align: center;
+  color: #FFF;
+  font-weight: bold
+}
+
+div.card-price span:first-of-type {
+  font-size: 19px;
+  position: relative;
+  top: -14px;
+}
+
+div.card-price span:last-of-type {
+  font-size: 40px;
+}
+
+div.card-target {
+  text-align: center;
+  font-size: 11px;
+  color: #FFF;
+}
+
+div.card-details {
+  text-align: center;
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+div.card-details  a {
+  color: #FFF;
+  text-decoration: none
+}
+
+div.card-sub {
+  text-align: center;
+  margin-top: 80px
+}
+
+div.card-sub button {
+  color: #FFF
+}
+
+div.header {
+  color: #2980b9;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #2980b9;
+}
+
+div.header h5 {
+  margin: 10px 0 0 0;
+}
+
+div.header p {
+  margin-bottom: 5px;
+}
+
+div.features ul {
+  font-size: 15px;
+  list-style: none;
+  padding-left: 25px;
+}
+
+div.features ul li::before {
+  content: "\2022"; 
+  color: #2980b9;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em; 
+  margin-left: -1em
+}

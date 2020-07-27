@@ -1,0 +1,136 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~angular-tree-component/dist/angular-tree-component.css';
+@import '~@angular/material/theming';
+@import '~dragula/dist/dragula.css';
+$custom-typography: mat-typography-config( $font-family: 'Exo');
+@include mat-core($custom-typography);
+body {
+    background-color: #f4f3f3;
+    margin: 0;
+    app-root * {
+        font-family: 'Exo', sans-serif;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-scroll::-webkit-scrollbar,
+.mat-menu-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+.custom-scroll::-webkit-scrollbar-track,
+.mat-menu-content::-webkit-scrollbar-track {
+    background: rgb(90, 90, 90);
+    border-radius: 4px
+}
+
+
+/* Handle */
+
+.custom-scroll::-webkit-scrollbar-thumb,
+.mat-menu-content::-webkit-scrollbar-thumb {
+    background: rgb(63, 63, 63);
+    border-radius: 4px
+}
+
+
+/* Handle on hover */
+
+.custom-scroll::-webkit-scrollbar-thumb:hover,
+.mat-menu-content::-webkit-scrollbar-thumb:hover {
+    background: rgb(31, 31, 31);
+    border-radius: 4px
+}
+
+.example-box {
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 9999;
+    transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.example-box:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.example-handle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 24px;
+    height: 24px;
+    z-index: 9999;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+    border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.mat-drawer-inner-container,
+.mat-drawer.mat-drawer-end {
+    overflow-x: visible !important;
+    overflow-y: scroll !important;
+    overflow: visible !important;
+}
+
+.mat-tab-header {
+    background-color: #FFF
+}
+
+blockquote p {
+    font-style: italic;
+    color: #333;
+    font-size: 16px;
+}
+
+blockquote p::after,
+blockquote p::before {
+    content: '"';
+    font-style: italic;
+    color: #333;
+    font-size: 13px;
+}

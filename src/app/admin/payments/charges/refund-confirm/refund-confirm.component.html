@@ -1,0 +1,164 @@
+<div *ngIf='!charge'>
+  <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+</div>
+<div *ngIf='error' class='alert alert-danger'>Something went wrong, please try again shortly.</div>
+<div *ngIf='charge'>
+  <section>
+    <div class="section-title">Basic Info</div>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-4">
+          <strong>ID</strong>
+          <span>{{charge.id}}</span>
+        </div>
+        <div class="col-4">
+          <strong>Customer ID</strong>
+          <span>{{charge.customer}}</span>
+        </div>
+        <div class="col-4">
+          <strong>Date Created</strong>
+          <span>{{charge.created | date:'short'}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <strong>Amount</strong>
+          <span>{{charge.amount / 100}}$</span>
+        </div>
+        <div class="col-4">
+          <strong>Payment Method</strong>
+          <span>{{charge.payment_method_details.card.brand}}</span>
+        </div>
+        <div class="col-4">
+          <strong>Status</strong>
+          <span>{{charge.status}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Card Details</div>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-3">
+          <strong>Brand</strong>
+          <span>{{charge.payment_method_details.card.brand}}</span>
+        </div>
+        <div class="col-3">
+          <strong>Last4</strong>
+          <span>{{charge.payment_method_details.card.last4}}</span>
+        </div>
+        <div class="col-3">
+          <strong>Exp Date</strong>
+          <span>{{charge.payment_method_details.card.exp_month}}/{{charge.payment_method_details.card.exp_year}}</span>
+        </div>
+        <div class="col-3">
+          <strong>Card Country</strong>
+          <span>{{charge.payment_method_details.card.country}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <strong>Name on Card</strong>
+          <span>{{charge.source.name}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Billing Address Details</div>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-4">
+          <strong>Country</strong>
+          <span>{{charge.source.address_country}}</span>
+        </div>
+        <div class="col-4">
+          <strong>State</strong>
+          <span>{{charge.source.address_city}}</span>
+        </div>
+        <div class="col-4">
+          <strong>ZIP</strong>
+          <span>{{charge.source.address_zip}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <strong>Address</strong>
+          <span>{{charge.source.address_line1}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Refund Customer</div>
+    <div class="section-body">
+      <div class="row" style='margin-top: 15px;'>
+        <div class="col-6">
+          <mat-form-field style='width: 100%'>
+            <input required placeholder="Amount" matInput type="number" [(ngModel)]='amount'>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field style='width: 100%'>
+            <mat-label>Reason</mat-label>
+            <mat-select matNativeControl required [(ngModel)]='refundReason'>
+              <mat-option value="duplicate">Duplicate</mat-option>
+              <mat-option value="fraudulent">Fraudulent</mat-option>
+              <mat-option value="requested_by_customer">Requested By Customer</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf='!isLoading' class="text-center">
+        <button mat-button class='btn btn-success' (click)='createRefund()'>Refund</button>
+      </div>
+      <div *ngIf='isLoading'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+      <div style='margin-top: 10px' *ngIf='isRefunded' class="alert alert-success">The amount has been refunded to the
+        customer.</div>
+      <div style='margin-top: 10px' *ngIf='refundError' class="alert alert-danger">An error has occured, please try
+        again shortly.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Refunds Details</div>
+    <div class="section-body">
+      <div *ngIf='!hasRefunds' style='margin-top: 10px' class='alert alert-info'>
+        This charge has no refunds.
+      </div>
+      <div [hidden]='!hasRefunds'>
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.amount / 100}}$ </td>
+          </ng-container>
+          <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.created | date:'shortDate'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef> Reason </th>
+            <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </section>
+</div>

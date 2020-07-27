@@ -1,0 +1,119 @@
+<mat-toolbar>
+    <div fxHide.gt-sm>
+        <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    </div>
+    <div class="app-header-logo">
+        <!-- <a routerLink="/">Owner-Account</a> -->
+        <a routerLink="/" class="logo"></a>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
+        <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+            <li class="nav-item app-header-item">
+                <a class="nav-link links side" *ngIf="user && !user.isAdmin" [routerLink]="['/videos']">
+                    <mat-icon>video_library</mat-icon><span>Videos</span>
+                </a>
+            </li>
+
+            <!-- <li class="nav-item app-header-item">
+        <a class="nav-link links side" *ngIf="user && !user.isAdmin" [routerLink]="['/creator-space']">
+          <mat-icon>videocam</mat-icon><span>Creator Space</span>
+        </a>
+      </li> -->
+
+            <!-- <li class="nav-item app-header-item" *ngIf="user && !user.isAdmin" [matMenuTriggerFor]="friendsMenu">
+        <a class="nav-link links side" (click)='getFriendList()'>
+          <mat-icon>supervised_user_circle</mat-icon>
+          <span [matBadge]="notificationCounts" matBadgePosition="above after" matBadgeColor="warn"
+            matBadgeOverlap="false"> Friends
+          </span>
+        </a>
+        <mat-menu (scroll)="onScroll($event)" #friendsMenu="matMenu">
+          <app-friends></app-friends>
+        </mat-menu>
+      </li> -->
+
+            <li class="nav-item app-header-item" *ngIf="user && !user.isAdmin" [matMenuTriggerFor]="newsMenu">
+                <a class="nav-link links side">
+                    <mat-icon>notifications</mat-icon>
+                    <span [matBadge]='getUnseenNewsCount()' matBadgePosition="above after" matBadgeColor="warn" matBadgeOverlap="false"> News </span>
+                </a>
+                <mat-menu #newsMenu="matMenu">
+                    <app-news></app-news>
+                </mat-menu>
+            </li>
+
+            <li class="nav-item app-header-item" *ngIf="!user" [routerLink]="['/pricing']">
+                <a class="nav-link links side">
+                    <mat-icon>attach_money</mat-icon><span>Pricing</span>
+                </a>
+            </li>
+
+            <li class="nav-item app-header-item" [matMenuTriggerFor]="more_menu">
+                <a class="nav-link links side">
+                    <mat-icon>more_vert</mat-icon><span>More</span>
+                </a>
+                <mat-menu #more_menu="matMenu">
+                    <section class="user-menu mat-menu-content">
+                        <div class="dark-menu-item" *ngIf="user" [routerLink]="['/pricing']" (click)="onSidenavClose(); setIsScrollToTiers(true);">
+                            <mat-icon>attach_money</mat-icon>
+                            <span class="nav-caption"> Pricing </span>
+                        </div>
+                        <div class="dark-menu-item" [routerLink]="['/about']" (click)="onSidenavClose()">
+                            <mat-icon>bookmark</mat-icon>
+                            <span class="nav-caption"> About </span>
+                        </div>
+                        <div class="dark-menu-item" [routerLink]="['/legal/privacy-policy']" (click)="onSidenavClose()">
+                            <mat-icon>assignment_late</mat-icon>
+                            <span class="nav-caption"> Legal </span>
+                        </div>
+                        <div class="dark-menu-item" [routerLink]="['/contact']" (click)="onSidenavClose()">
+                            <mat-icon>live_help</mat-icon>
+                            <span class="nav-caption"> Contact </span>
+                        </div>
+                    </section>
+                </mat-menu>
+            </li>
+
+            <li class="nav-item app-header-item">
+                <a class="nav-link links side" *ngIf="!user" [routerLink]="['/auth/login']">
+                    <mat-icon>account_circle</mat-icon>
+                    <span *ngIf="!user">Login</span>
+                </a>
+                <a class="nav-link links side" *ngIf="user" [matMenuTriggerFor]="menu">
+                    <img class="profile-image" [src]="user.avatar">
+                    <span *ngIf="user">{{user.firstName}}</span>
+                </a>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngIf="user && user.isAdmin" [routerLink]="['/admin']">admin</button>
+                    <!-- <div mat-list-item class="dd-usr-item"
+            style="height: 100%; padding-top:0px; padding-bottom:0px; margin-bottom: 10px;" *ngIf="user">
+            <mat-button-toggle-group name="netgroup" style="width: 100%; max-height: 40px; align-items: center;"
+              value="Online" aria-label="ToggleButton">
+              <mat-button-toggle style="width: 50%" value="Online">Online</mat-button-toggle>
+              <mat-button-toggle style="width: 50%" value="Invisible">Invisible</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div> -->
+                    <section class="user-menu mat-menu-content">
+                        <div mat-list-item class="dark-menu-item" *ngIf="user" [routerLink]="['/creator-space/videos']" (click)="onSidenavClose()">
+                            <mat-icon>videocam</mat-icon>
+                            <span class="nav-caption" *ngIf="user && !user.isAdmin"> Creator Space </span>
+                        </div>
+                        <div mat-list-item class="dark-menu-item" *ngIf="user" [routerLink]="['/settings']" (click)="onSidenavClose()">
+                            <mat-icon>settings</mat-icon>
+                            <span class="nav-caption" *ngIf="user && !user.isAdmin"> Account Settings </span>
+                        </div>
+                        <div mat-list-item class="dark-menu-item" *ngIf="user" (click)="openDialog()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span class="nav-caption">Log Out</span>
+                        </div>
+                        <div mat-list-item class="dark-menu-item" *ngIf="user">
+                            <span class="nav-caption">{{ getVersion() }}</span>
+                        </div>
+                    </section>
+                </mat-menu>
+            </li>
+        </ul>
+    </div>
+</mat-toolbar>

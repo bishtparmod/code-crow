@@ -1,0 +1,24 @@
+<mat-card class="video-item" style='padding: 5px 10px; margin-bottom: 15px;'>
+  <div class="row">
+    <div class='col-5' style='padding: 0 5px'><img style="width: 100%" [src]="video.thumbnail.Location"
+        alt="Video Thumbnail"></div>
+    <div class='col-7' style='padding: 0;'>
+      <h6 style='margin: 0'>{{video.stream.title}} | {{video.channel.title}}</h6>
+      <div *ngIf='!hideStatistics'>
+        <span>{{totalViews}} Views</span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>{{totalRate}}% <mat-icon style="position: relative; top: 3px">thumb_up</mat-icon></span>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style='margin-top: 10px' *ngIf='!showButton && !hideButtons'>
+    <button mat-button (click)='video.addToPlaylist()'>
+      <mat-icon>playlist_add</mat-icon>Add To Playlist
+    </button>
+  </div>
+  <div class="text-center" style='margin-top: 10px' *ngIf='showButton && !hideButtons'>
+    <button mat-button (click)='video.removeFromPlaylist()'>
+      <mat-icon>remove</mat-icon>Remove From Playlist
+    </button>
+  </div>
+</mat-card>

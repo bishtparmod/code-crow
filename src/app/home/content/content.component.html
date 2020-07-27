@@ -1,0 +1,16 @@
+<div class="app-content" *ngIf="chatService.currentChannel">
+    <app-stream-controls *ngIf='chatService.isHost'></app-stream-controls>
+    <!-- <p class="app-content-streaming-message-container" *ngIf="streamingStatus"
+    [ngClass]="chatService.isStreamingMsgBackgroundOn ? 
+    'app-content-streaming-message-container-background-on' : 'app-content-streaming-message-container-background-off'">
+    {{ getStreamingStatus() }}</p> -->
+    <app-video class="app-content-video" *ngIf='chatService.sharedScreen'></app-video>
+</div>
+<div class="row app-content-messagelist">
+    <div class="custom-scroll" fxLayout="row">
+        <div class="app-content-friendchat height-fix" *ngFor='let friend of friendChatService.activeTabs'>
+            <app-friend-chat [friend]='friend'>
+            </app-friend-chat>
+        </div>
+    </div>
+</div>

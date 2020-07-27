@@ -1,0 +1,74 @@
+<section>
+  <div class="section-body">
+    <div>
+      <section>
+        <div class="section-title">Basic Info</div>
+        <div class="section-body">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field style='width: 100%'>
+                <input [(ngModel)]='name' matInput required type="text" placeholder="Name">
+              </mat-form-field>
+            </div>
+            <div class='col-6'>
+              <mat-form-field style='width: 100%'>
+                <mat-label>Type</mat-label>
+                <mat-select matNativeControl required [(ngModel)]='type'>
+                  <mat-option value="good">Product</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="section-title" style="padding-bottom: 0">
+          <mat-icon style='cursor: pointer;' (click)='addAttribute()'>add</mat-icon>
+          <span style="position: relative;top: -6px;left: 10px;">Attributes</span>
+        </div>
+        <div class="section-body">
+          <div class="row" *ngFor='let attribute of attributes;let index = index;trackBy:trackByIndex;'>
+            <div class="col-8">
+              <mat-form-field style='width:100%'>
+                <input type="text" matInput placeholder="e.g. unlimited streaming time." [(ngModel)]='attributes[index]'>
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <button mat-icon-button (click)='removeAttribute(i)' style='position: relative; top: 10px;'>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="section-title">Description</div>
+        <div class="section-body">
+          <div class="row" style='margin-bottom: 10px'>
+            <div class="col-12">
+              <mat-form-field style="width: 100%">
+                <textarea [(ngModel)]='description' matInput required placeholder="Description"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" style='margin-bottom: 10px'>
+            <div class="col-12">
+              <mat-form-field style="width: 100%">
+                <textarea [(ngModel)]='caption' matInput placeholder="Seller Notes"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="text-center" *ngIf='!isLoading'>
+        <button class='btn btn-success' mat-button (click)='addProduct()'>Add product</button>
+      </div>
+      <div *ngIf='isLoading'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+      <div class="alert alert-success" *ngIf='isAdded' style='margin-top: 10px'>Product added successfully.</div>
+      <div class="alert alert-danger" *ngIf='error' style='margin-top: 10px'>An error has occured, please try again
+        shortly.</div>
+    </div>
+  </div>
+</section>

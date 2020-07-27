@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Donate to Host</h1>
+<div mat-dialog-content>
+  <span class="app-donate-description">How much would you like to donate to <strong>{{data.user}}</strong>?</span>
+  <mat-form-field style='width: 96%; margin: 0 2%'>
+    <input #amountInput type="number" matInput placeholder="Amount">
+    <!-- <input #amountInput matInput type="text" placeholder="Amount" [ngModel]="testPrice | currency:'USD':'symbol':'2.2'"
+      [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="testPrice=$event" /> -->
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+  <div class="btn-group">
+    <button mat-ripple (click)="addPayment(1)" mdbBtn rounded="true" type="button">
+      $ 1
+    </button>
+    <button mat-ripple (click)="addPayment(5)" mdbBtn rounded="true" type="button">
+      $ 5
+    </button>
+    <button mat-ripple (click)="addPayment(10)" mdbBtn rounded="true" type="button">
+      $ 10
+    </button>
+    <button mat-ripple (click)="addPayment(50)" mdbBtn rounded="true" type="button">
+      $ 50
+    </button>
+  </div>
+</div>
+<div mat-dialog-actions [attr.align]="'end'">
+  <button mat-raised-button mdbBtn class="cancel-button" style="float:left" mat-button
+    (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button mdbBtn color="info" style="float:right" (click)="submitDonation()" mat-button
+    [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+</div>

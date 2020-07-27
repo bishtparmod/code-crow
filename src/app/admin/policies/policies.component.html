@@ -1,0 +1,26 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer position="start" mode="side" opened>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content style='padding: 20px 10px'>
+    <mat-card>
+      <div class="card-title">Upload Policies</div>
+      <div class="card-body row">
+        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="stageFiles($event)">
+          <input hidden type="file" #fileInput (change)="stageFiles($event.target.files)">
+        </div>
+        <div class="files-list" *ngFor="let file of files;let i= index">
+          <p> {{ file.title }} </p>
+          <button class="delete-file" (click)="deleteAttachment(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button class="app-policies-send-button" mat-raised-button (click)="uploadFiles()" mdbBtn color="info"
+        rounded="true" mdbWavesEffect type="button">
+        <mat-icon>check</mat-icon>
+        Send
+      </button>
+    </mat-card>
+  </mat-drawer-content>
+</mat-drawer-container>

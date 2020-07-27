@@ -1,0 +1,69 @@
+<div class="app-attachment-content row">
+    <div class="col-8">
+        <div>
+            <button type="button" (click)="toggleAttachment()" mdbBtn color="primary" rounded="true"
+                class="app-message-attachment-btn" mdbWavesEffect matTooltip="Attachments" matTooltipPosition="above">
+                <mat-icon>attachment</mat-icon>
+            </button>
+        </div>
+        <div style="margin-left: 40px;">
+            <button type="button" (click)="toggleGiphySearch()" mdbBtn color="primary" rounded="true"
+                class="app-message-attachment-btn" mdbWavesEffect matTooltip="Gifs" matTooltipPosition="above">
+                <mat-icon>gif</mat-icon>
+            </button>
+        </div>
+        <div style="margin-left: 40px;">
+            <button type="button" (click)="toggleEmojiPicker()" mdbBtn color="primary" rounded="true"
+                class="app-message-attachment-btn" mdbWavesEffect matTooltip="Emojis" matTooltipPosition="above">
+                <mat-icon>sentiment_very_satisfied</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 app-input-menu" *ngIf="showGiphySearch || showEmojiPicker || showAttachment">
+    <div class="col-12 app-attachment-close-button" *ngIf="isMenuOpen">
+        <button (click)="closeMenu()" mat-icon-button matTooltip="Close menu" matTooltipPosition="above">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+
+    <div *ngIf="showGiphySearch" class="giphy-search">
+        <div class="md-form app-gif-search-bar sticky" (click)="$event.stopPropagation();">
+            <input type="search" [(ngModel)]="giphySearchTerm" (change)="searchGiphy()" placeholder="Search for a GIF"
+                name="giphy" (click)="$event.stopPropagation();">
+        </div>
+
+        <div class="search-results">
+            <div class="gif-result" *ngFor="let result of giphyResults">
+                <img src="{{ result.images.downsized_large.url }}"
+                    (click)="sendGif(result.title, result.images.original.url)">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showEmojiPicker">
+        <emoji-mart #emojiPicker set="google" (emojiSelect)="addEmoji($event)" title="Change color.. .">
+        </emoji-mart>
+    </div>
+
+    <div *ngIf="showAttachment" class="form-group">
+        <button for="file" ngf-select ng-model="file" mdbBtn color="info" mdbWavesEffect (click)="fileInput.click()">
+            Choose File </button> {{fileToUploadName}}
+        <input #fileInput style="display: none;" type="file" id="file" (change)="handleFileInput($event.target.files)">
+        <button *ngIf="fileToUpload" mat-button (click)="clearFile()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="app-chat-input md-form md-outline" *ngIf="show">
+    <textarea [(ngModel)]="chatMessage" name="chatMessage"
+        class="md-textarea form-control app-mesage-input-content thin" rows="2" id="input_text" type="text"
+        placeholder="Type a message..." length="250" (keydown)='emitTyping($event)' (keydown.enter)="sendMessage()"
+        mdbCharCounter mdbInput matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="18" >
+    </textarea>
+    <button type="button" (click)="sendMessage()" mdbBtn color="primary" class="app-message-send-btn" mdbWavesEffect
+        matTooltip="Send" matTooltipPosition="above">
+        <mat-icon>send</mat-icon>
+    </button>
+</div>

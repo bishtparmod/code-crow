@@ -1,0 +1,50 @@
+body {
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+}
+
+h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.container-fluid {
+    padding: 60px 50px 0px;
+    height: 100%;
+}
+
+.bg-grey {
+    background-color: #f6f6f6;
+}
+
+.button {
+    color: white;
+}
+
+.app-contact-content {
+    min-height: 88%;
+}
+
+.app-contact-subject {
+    margin: 0 0 15px 0
+}
+
+.app-contact-input {
+    width: 100%
+}
+
+.app-contact-split {
+    width: 50%
+}
+
+.app-contact-name {
+    padding-right: 20px;
+}
+
+.app-contact-message {
+    min-height: 150px;
+}

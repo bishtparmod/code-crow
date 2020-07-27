@@ -1,0 +1,66 @@
+.app-videoitem{
+    float: left;
+    width: 250px;
+    min-height: 300px;
+    margin: 12px;
+    cursor: pointer;
+    background-color: #181b29;
+}
+
+.app-videoitem-title{
+    float: left;
+    width: 100%;
+    color: aquamarine;
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.app-videoitem-detail{
+    float: left;
+    width: 100%;
+    height: auto;
+    align-self: center;
+    color: #FAEBD7;
+    margin-bottom: 5px;
+}
+
+.app-videoitem-duration-container{
+    float: right;
+    background-color: #181b29;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 3px;
+}
+
+.app-videoitem-duration{
+    color: #FAEBD7;
+}
+
+.app-videoitem-thumbnail-container{
+    position: relative;
+}
+
+.app-videoitem-thumbnail{
+    width: 100%;
+    position: relative;
+}
+
+.app-videoitem-personal-container{
+    float: left;
+    background-color: #2a8553;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    padding: 3px;
+}
+
+.app-videoitem-personal{
+    color: #FAEBD7;
+}
+
+.selected {
+    border: 1px solid #4285F4;
+    box-shadow: 0 0 0px 0px #4285F4;
+}
+

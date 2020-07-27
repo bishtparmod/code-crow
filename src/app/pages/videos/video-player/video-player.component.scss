@@ -1,0 +1,152 @@
+vg-player {
+  max-height: 80vh;
+  padding-bottom: 50px;
+}
+
+div.avatar {
+  max-width: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid #DDD;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+}
+
+div.avatar img {
+  width: 100%
+}
+
+div.video-list {
+  padding: 5px 15px 10px 15px;
+  font-size: 15px;
+  border: 1px solid #EFEFEF;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+}
+
+div.duration-percent-holder {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #AAA;
+  left: 0;
+}
+
+div.duration-percent-holder div {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background-color: #2e86c0
+}
+
+p.video-title {
+  margin: 5px 0; font-size: 16px;
+}
+
+p.video-title mat-icon {
+  position: relative; top: 7px; margin-right: 5px;
+}
+
+p.video-title.active mat-icon {
+  color: #2e86c0 !important
+}
+
+p.video-title.active {
+  font-weight: bold !important
+}
+
+h5.section-title {
+  margin: 0; padding: 12px; text-align: center; font-size: 17px
+}
+
+div.quiz-title {
+  padding: 10px 15px;
+  font-size: 15px;
+  border: 1px solid #DDD;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+}
+
+div.duration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #BEBEBE;
+  padding: 0px 3px 2px 0;;
+  border-radius: 4px;
+  border-bottom-right-radius: 0;
+  color: #FFF;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+div.duration mat-icon {
+  position: relative;
+  top: 2.5px;
+  margin-right: 1px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+div.duration span {
+  position: relative;
+  top: -1px;
+  font-size: 11px;
+}
+
+div.views {
+  margin-top: 10px
+}
+
+div.views p {
+  font-size: 16px;
+  color: #555;
+}
+
+button.comment-button {
+  width: 100%; background-color: #2e86c0; color: #FFF;
+}
+
+textarea {
+  min-height: 40px; max-height: 80px
+}
+
+div.like-tools {
+  position: relative;
+  top: -30px;
+}
+
+div.like-overview {
+  width: 50%;
+  height: 5px;
+  background-color: #DDD;
+  float: right;
+  position: relative;
+  border: 1px solid #EEE;
+  box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+div.like-green {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background-color: #0F0;
+}
+
+div.unlike-red {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  background-color: #F00;
+}
+
+mat-card.playlist {
+  max-height: 900px;
+  overflow-y: scroll;
+}

@@ -1,0 +1,46 @@
+<mat-card>
+  <div class="card-title row">
+    <div class="col-6">Subscription Info</div>
+    <div class="col-2">Price</div>
+    <div class="col-2">Start Date</div>
+    <div class="col-2">End Date</div>
+  </div>
+  <div class="card-body" *ngIf='loadingSources'>
+    <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+  </div>
+  <div class="card-body" *ngIf='!loadingSources && !subscriptions.length'>
+    <div style='margin-top: 1rem' class="alert alert-info">You don't any active subscriptions.</div>
+  </div>
+  <div class="card-body" *ngIf='subscriptions.length && !loadingSources'>
+    <div class="row" *ngFor='let subscription of subscriptions'>
+      <div class="col-6">
+        <h5><strong>{{subscription.plan.name}}</strong> Tier Subscription</h5>
+        <div class="features">
+          <ul>
+            <li>Unlimited private channels.</li>
+            <li>Unlimited video uploads.</li>
+            <li>10 hours of video streaming.</li>
+            <li>Manage your streams and videos on our new creator space.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-2">
+        <span>${{subscription.plan.amount / 100}}.00 / month</span>
+        <span>Billed Monthly</span>
+      </div>
+      <div style='font-size: 13px' class="col-2">
+        {{subscription.current_period_start | date:'shortDate'}}
+      </div>
+      <div style='font-size: 13px' class="col-2">
+        {{subscription.current_period_end | date:'shortDate'}}
+      </div>
+    </div>
+  </div>
+  <div class='text-center' style="padding-bottom: 20px;" *ngIf='!loadingSources && subscriptions.length'>
+    <button mat-button (click)='deleteSub()'>Cancel plan</button>
+    <button mat-button (click)='changePlan()'>Change plan</button>
+  </div>
+  <div class='text-center' style="padding-bottom: 20px;" *ngIf='!loadingSources && !subscriptions.length'>
+    <button mat-button (click)='changePlan()'>Select new plan</button>
+  </div>
+</mat-card>

@@ -1,0 +1,54 @@
+mat-card {
+  margin-top: 25px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.card-title {
+  font-size: 14px;
+  padding: 5px 15px;
+  background-color: #F0F3F5;
+  color: #333
+}
+
+div.desc {
+  padding: 0px 10px 15px 10px;
+  border-bottom: 1px solid #DDD
+}
+
+div.new-users,
+div.recuring-users,
+div.page-views,
+div.organic {
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-radius: 6px;
+  padding: 5px 15px
+}
+
+div.new-users {
+  border-left-color: #63c2de
+}
+
+div.recuring-users {
+  border-left-color: #f86c6b
+}
+
+div.page-views {
+  border-left-color: #ffc107
+}
+
+div.organic {
+  border-left-color: #4dbd74
+}
+
+span.title {
+  color: #73818f;
+  font-size: 14px;
+  display: block
+}
+
+span.number {
+  font-size: 16px;
+  font-weight: bold
+}

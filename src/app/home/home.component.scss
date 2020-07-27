@@ -1,0 +1,86 @@
+.app-main-content-holder {
+    height: 75%;
+    position: relative;
+    @media (max-width: 576px) {
+        height: 100%;
+    }
+}
+
+.app-container {
+    max-width: 100%;
+    background-color: #202235;
+    color: antiquewhite;
+    padding: 0px !important;
+}
+
+.app-main {
+    background-color: #202235;
+    height: 100%;
+    overflow-y: auto;
+    @media (max-width: 992px) {
+        height: 50%;
+        max-width: 100%;
+        width: 100%;
+        float: left;
+        // display: none;
+    }
+    margin: 0px !important;
+    padding: 4px !important;
+}
+
+.app-channel-holder{
+    width: 320px;
+    height: calc(100vh - 112px);
+    background-color: #232438;
+    margin: 0px !important;
+    padding: 0 10px 15px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    @media (max-width: 992px) {
+        max-width: 100%;
+        margin-left: 50px;
+        margin-right: 50px;
+        height: 400px;
+        display: none !important;
+    }
+    @media (max-width: 576px) {
+        max-width: 100%;
+        margin-left: 50px;
+        margin-right: 50px;
+        height: 400px;
+        display: none !important;
+    }
+}
+
+.app-chat-holder {
+    max-width: 450px;
+    max-height: 100%;
+    background-color: #232438;
+    @media (max-width: 992px) {
+        height: 50%;
+        width: 100%;
+        max-width: 100%;
+        float: left;
+    }
+    @media (max-width: 576px) {
+        height: 50%;
+        width: 100%;
+        max-width: 100%;
+        float: left;
+    }
+    margin: 0px !important;
+}
+
+.app-channel-tab-icon {
+    margin-right: 5px;
+}
+
+// mat-card.selector {
+//     width: 100%;
+//     margin: 0 !important;
+// }
+
+// mat-card.selector div.row div button {
+//     width: 100%;
+//     color: #333
+// }

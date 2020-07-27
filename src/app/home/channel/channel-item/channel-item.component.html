@@ -1,0 +1,37 @@
+<mat-card
+  class="app-channelitem"
+  matRipple
+  (click)="joinChannel(channel.descriptor.sid, channel.friendlyName)"
+  [class.selected]="isCurrentChannel"
+  [routerLink]="['/channel', channel.descriptor.sid]"
+>
+  <div class="app-channelitem-title">
+    {{ channel.friendlyName }}
+  </div>
+  <div class="app-channelitem-description">
+    {{ channel.attributes?.description }}
+  </div>
+  <div class="app-channelitem-detail">
+    <div class="app-channelitem-name">
+      <mat-icon>group</mat-icon>
+      <span
+        style="top: -5px;
+			position: relative;
+			left: 4px;"
+        >{{ channel.membersCount }}</span
+      >
+    </div>
+  </div>
+  <div class="app-channelitem-detail app-channelitem-name-margin-top">
+    <div class="app-channelitem-name app-channelitem-name-padding">
+      <img
+        class="app-channelitem-avatar"
+        [src]="channel.attributes?.userImage"
+        alt="channel_avatar"
+      />
+      <!-- <span *ngIf="isUserOnline" class="online"></span>
+      <span *ngIf="!isUserOnline" class="offline"></span> -->
+      <span>{{ channel.createdBy }}</span>
+    </div>
+  </div>
+</mat-card>

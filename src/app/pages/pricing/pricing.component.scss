@@ -1,0 +1,28 @@
+.app-container {
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+}
+
+section {
+    background-color: #FFF;
+    min-height: 89vh
+}
+
+div.row {
+    padding-top: 60px
+}
+
+div.page-title {
+    padding-top: 15px
+}
+
+div.page-title h3,
+div.page-title p {
+    text-align: center;
+    color: #333;
+}
+
+.spererator {
+  border-left: 1px dashed #dedede;
+}

@@ -1,0 +1,61 @@
+<mat-card class="app-friendchat" [ngClass]="isMinimized ? 'app-friendchat-closed' : 'app-friendchat-open'">
+    <mat-toolbar class="app-friendchat-toolbar" color="primary">
+        <mat-toolbar-row class="app-friendchat-toolbar-row">
+            <span class="app-friendchat-toolbar-title">
+                <span *ngIf='friend.user.isOnline' style='margin-right: 5px; color: greenyellow'>&#9673;</span>
+                <span *ngIf='!friend.user.isOnline' style='margin-right: 5px; color: red'>&#9673;</span>
+                {{friend.user.firstName}}
+            </span>
+            <div fxFlex fxLayout fxLayoutAlign="flex-end">
+                <ul style="position: relative; top: -5px; right: -15px;" class="noBullets" id="noBullets" fxLayout
+                    fxLayoutGap="20px">
+                    <li>
+                        <mat-icon style="font-size: 14px;" (click)="isMinimized=!isMinimized">minimize</mat-icon>
+                        <mat-icon style="font-size: 14px; position: relative; top: 4px;" (click)="closeChat()">close
+                        </mat-icon>
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div [ngClass]="isMinimized ? 'app-friendchat-msginput-collapse' : 'app-friendchat-msginput-expand'">
+        <div class="app-friendchat-chatlist custom-scroll" *ngIf='username' #chatDisplay>
+            <!-- <app-message *ngFor='let message of friend.messages'
+        [Sender]='message.author'
+        [When]='message.timestamp'
+        [Content]='message.body'
+        [Username]='username'
+        [Message]='message'
+        [MemberSid]='message.memberSid'
+        [oneVone]='1'
+      >
+      </app-message> -->
+            <app-message *ngFor='let item of friend.messages' [wasPreviousMsg]="false" [Sender]="item.author"
+                [When]="item.timestamp" [Content]="item.body" [Avatar]="item.attributes.avatar" [Username]="username"
+                [MemberSid]="item.memberSid" [Message]="item" [Email]="item.attributes.email"
+                [Image]="item.attributes.media" [MimeType]="item.attributes.type" [File]="item.attributes.file"
+                [FileName]="item.attributes.text" [oneVone]='1'>
+            </app-message>
+        </div>
+        <div class="d-flex align-items-end">
+            <app-input class="app-chat-input-holder" [hideData]="hidedata" [show]="false"
+                (sendGifImage)="givenGifImage = $event" (sendEmoji)="givenEmoji = $event"
+                (sendImage)="receviedImage = $event" (refresh)="appInputRefresh = $event"></app-input>
+        </div>
+        <div class="app-friendchat-input">
+            <div class="app-chat-input md-form md-outline">
+                <!-- <div class="app-chat-input-holder d-flex align-items-end">
+                    <app-input [hideData]="hidedata" [show]="false" (sendGifImage)="givenGifImage = $event" (sendEmoji)="givenEmoji = $event" (sendImage)="receviedImage = $event" (refresh)="appInputRefresh = $event"></app-input>
+                </div> -->
+                <textarea class="md-textarea form-control app-mesage-input-content thin" rows="2" id="input_text"
+                    type="text" placeholder="Type a message..." length="250" mdbCharCounter mdbInput
+                    [(ngModel)]='message' (keydown)='emitTyping($event)' (keydown.enter)="sendMessage()" mdbCharCounter mdbInput matInput
+                    cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="18"></textarea>
+                <button type="button" mdbBtn color="primary" class="app-message-send-btn" mdbWavesEffect
+                    (click)='sendMessage()'>
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-card>

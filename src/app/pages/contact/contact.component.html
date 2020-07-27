@@ -1,0 +1,61 @@
+<div id="contact" class="container-fluid bg-grey">
+  <div class="app-contact-content">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+      <div class="col-sm-5">
+        <p>Contact us and we'll get back to you within 24 hours.</p>
+        <p>Questions, feature requests, bug reports, feedback</p>
+        <p>
+          <mat-icon>location_on</mat-icon><span>
+            16192 Coastal Highway <br />
+            Lewes, DE 19958 <br />
+            United States <br />
+          </span>
+        </p>
+        <p>
+          <mat-icon>mail_outline</mat-icon> support@codecrow.io
+        </p>
+      </div>
+      <div class="col-sm-7" [formGroup]='contactForm'>
+        <div class="row">
+          <div class="app-contact-split form-group">
+            <mat-form-field class="app-contact-input app-contact-name">
+              <input matInput formControlName='name' placeholder="Name" type="text" required>
+            </mat-form-field>
+          </div>
+          <div class="app-contact-split form-group">
+            <mat-form-field class="app-contact-input">
+              <input matInput formControlName='email' placeholder="Email" type="email" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <mat-form-field class="app-contact-input">
+            <input matInput class="app-contact-subject" formControlName='subject' placeholder="Subject" type="text"
+              required>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="app-contact-input app-contact-message">
+            <textarea matInput formControlName='message' placeholder="Message" rows="10"></textarea><br>
+          </mat-form-field>
+        </div>
+        <div class="row" *ngIf='!isSendingMessage'>
+          <div class="col-sm-12 form-group" style="float:right">
+            <button mat-button class="btn btn-default pull-right button" (click)='sendMessage()'>Send</button>
+          </div>
+        </div>
+        <div *ngIf='isSendingMessage' style='margin-top: 10px'>
+          <mat-spinner style="margin:0 auto;" diameter='30' mode="indeterminate"></mat-spinner>
+        </div>
+        <div style='margin-top: 10px' class="alert alert-danger" *ngIf='isConnectionError'>Couldn't connect to email
+          server. Please try again shortly.</div>
+        <div style='margin-top: 10px' class="alert alert-danger" *ngIf='isValidationError'>Validation error. Please
+          fill in all required fields.</div>
+        <div style='margin-top: 10px' class="alert alert-success" *ngIf='isMessageSent'>Your message is sent! You'll
+          hear from us soon! :)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer style="position: absolute; bottom: 0%; width: 100%;"></app-footer>

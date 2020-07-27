@@ -1,0 +1,188 @@
+<mat-tab-group>
+
+  <!-- ACTIVE USERS TAB -->
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">supervisor_account</mat-icon>
+      Active Users
+    </ng-template>
+
+    <div>
+      <h3 class="text-center tab-title">Active Users</h3>
+      <div class="search">
+        <mat-form-field style="width: 33%">
+          <input matInput placeholder="Search..." [(ngModel)]="activeUserSearch">
+        </mat-form-field>
+      </div>
+
+      <div *ngIf='isLoadingMembers'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+
+      <div class="users row" *ngIf="!isLoadingMembers">
+        <div class="col-4" *ngFor="let member of members">
+          <div class="row">
+            <div class="username col-6 align-items-center">
+              <div class="avatar d-inline-block">
+                <img class='user-avatar' [src]="member.avatar" alt="User Avatar">
+              </div>
+              <div class="name d-inline-block">
+                <span class='user-name'>
+                  {{member.firstName}}
+                </span>
+              </div>
+            </div>
+            <div class="options col-6" style="padding: 0 !important">
+              <!-- <button style="outline: none" mat-icon-button color="primary" matTooltip="Message">
+                <mat-icon>message</mat-icon>
+              </button> -->
+              <button style="outline: none" mat-icon-button color="primary"
+                *ngIf='username == chatService.currentChannel.state.createdBy' (click)="blockUser(member._id)"
+                matTooltip="Block">
+                <mat-icon>block</mat-icon>
+              </button>
+              <button style="outline: none" mat-icon-button color="primary" matTooltip="Options"
+                [matMenuTriggerFor]="appMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu style="width: 150px; margin: 0" #appMenu="matMenu">
+                <div>
+                  <button style="width: 100%; outline: none" mat-button color="primary" (click)="sendFriendRequest(member)">
+                    <mat-icon class='menu-icon' style="position: relative; top: -3px">person_add</mat-icon>
+                    <span>Add friend</span>
+                  </button>
+                </div>
+                <!-- <div>
+                  <button style="width: 100%; outline: none" mat-icon-button color="primary">
+                    <mat-icon class='menu-icon' style="position: relative; top: -3px">account_circle</mat-icon>
+                    <span>View profile</span>
+                  </button>
+                </div> -->
+                <div>
+                  <button style="width: 100%; outline: none" mat-button color="primary"
+                    (click)="openGitProfile(member)">
+                    <i *ngIf='member.providerType === "Github"' class="fab fa-github menu-icon"
+                      style="position: relative; right: 5px"></i>
+                    <i *ngIf='member.providerType === "bitbucket"' class="fab fa-bitbucket menu-icon"
+                      style="position: relative; right: 5px"></i>
+                    <i *ngIf='member.providerType === "Gitlab"' class="fab fa-gitlab menu-icon"
+                      style="position: relative; right: 5px"></i>
+                    <span *ngIf='member.providerType === "Github"'>Github profile</span>
+                    <span *ngIf='member.providerType === "bitbucket"'>Bitbucket profile</span>
+                    <span *ngIf='member.providerType === "Gitlab"'>Gitlab profile</span>
+                  </button>
+                </div>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <!-- END ACTIVE USERS TAB -->
+
+  <!-- BLOCKED USERS TAB -->
+  <mat-tab *ngIf='username == chatService.currentChannel.state.createdBy'>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">block</mat-icon>
+      Blocked Users
+    </ng-template>
+    <h3 class="text-center tab-title">Blocked Users</h3>
+    <div class="search">
+      <mat-form-field style="width: 33%">
+        <input matInput placeholder="Search..." [(ngModel)]="activeUserSearch">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf='isLoadingBlockedMembers'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+
+    <div class="users row" *ngIf="!isLoadingBlockedMembers">
+      <div class="col-4" *ngFor="let block of blockedMembers">
+        <div class="row">
+          <div class="username col-6 align-items-center">
+            <div class="avatar d-inline-block">
+              <img class='user-avatar' [src]="block.user.avatar" alt="User Avatar">
+            </div>
+            <div class="name d-inline-block">
+              <span class='user-name'>
+                {{block.user.firstName}}
+              </span>
+            </div>
+          </div>
+          <div class="options col-6" style="padding: 0 !important">
+            <button style="outline: none" mat-icon-button color="primary" (click)="unblockUser(block._id, block.user)"
+              matTooltip="Block">
+              <mat-icon>block</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <!-- END BLOCKED USERS TAB -->
+
+  <!-- DESKTOP STREAMING TAB -->
+  <!-- <mat-tab *ngIf='username == chatService.currentChannel.state.createdBy'>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">camera_roll</mat-icon>
+      Desktop Streaming
+    </ng-template>
+    <h3 class="text-center tab-title" style="margin-bottom: 20px">Desktop Streaming</h3>
+
+    <div class='row'>
+      <div class='col-6 example-box' #videoPreview></div>
+      <div style='visibility: hidden;' #audioPreview></div>
+      <div class="col-6">
+        <form [formGroup]="streamForm">
+          <mat-form-field style='width: 100%'>
+            <input type="text" matInput formControlName='title' placeholder="title">
+          </mat-form-field>
+          <button mat-button (click)='shareToTwillio()' *ngIf='!isLoading && !chatService.hostLocalVideoTrack'>Start
+            Streaming</button>
+          <div *ngIf='isLoading'>
+            <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-tab> -->
+  <!-- END DESKTOP STREAMING TAB -->
+
+  <!-- GUEST DESKTOP STREAMING TAB -->
+  <!-- <mat-tab *ngIf='username != chatService.currentChannel.state.createdBy'>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">camera_roll</mat-icon>
+      Desktop Streaming
+    </ng-template>
+    <h3 class="text-center tab-title" style="margin-bottom: 20px">Desktop Streaming</h3>
+
+    <div class='row'>
+      <div class='col-6 example-box' #preview></div>
+      <div class="col-6">
+        <button mat-button (click)='getFromTwillio()' *ngIf='!isLoading && !chatService.sharedScreen'>Fetch
+          Streaming</button>
+        <div *ngIf='isLoading'>
+          <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger text-center" *ngIf='error' style='margin-top: 20px;'>{{error}}</div>
+  </mat-tab> -->
+  <!-- END GUEST DESKTOP STREAMING TAB -->
+
+  <!-- GENERAL SETTINGS TAB -->
+  <!-- <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">settings</mat-icon>
+      General Settings
+    </ng-template>
+    <h3 class="text-center tab-title">General Settings</h3>
+
+
+  </mat-tab> -->
+  <!-- END GENERAL SETTINGS TAB -->
+
+</mat-tab-group>

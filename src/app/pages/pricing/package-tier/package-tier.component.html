@@ -1,0 +1,21 @@
+<div>
+  <mat-card style='min-height: 320px;'>
+    <div class="card-title">Package {{i + 1}}</div>
+    <div class="card-price"><span>$</span><span>{{package.price / 100}}</span></div>
+    <div class="card-target">One time payment.</div>
+    <div class="card-target">No strings attached.</div>
+    <div class="card-sub">
+      <button mat-button (click)='buy(package.id)'>Buy</button>
+    </div>
+  </mat-card>
+  <div class="header">
+    <h5>Package Includes</h5>
+  </div>
+  <div class="features">
+    <ul>
+      <li>{{StreamingTime}} Hours of live streaming time.</li>
+      <li>{{RecordingTime}} Hours of video recording time.</li>
+      <li>{{ParticipantsAllowed}} Participants allowed per live stream.</li>
+    </ul>
+  </div>
+</div>

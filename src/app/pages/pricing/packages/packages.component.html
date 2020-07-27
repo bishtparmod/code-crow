@@ -1,0 +1,7 @@
+<div class="page-body" *ngIf='isLoaded'>
+  <div class="row" style='margin: 0 auto'>
+    <div class='col-4' *ngFor='let package of packages; let i = index'>
+      <app-package-tier [package]='package' [i]='i'></app-package-tier>
+    </div>
+  </div>
+</div>

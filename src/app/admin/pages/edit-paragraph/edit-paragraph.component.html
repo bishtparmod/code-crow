@@ -1,0 +1,9 @@
+<div>
+  <h3 class="text-center">Edit Paragraph</h3>
+  <mat-form-field style="width: 100%">
+    <textarea [(ngModel)]="data.content" style='height: 100px' matInput></textarea>
+  </mat-form-field>
+  <button style="width: 100%" mat-button (click)='updateParagraph()'>
+    Update
+  </button>
+</div>

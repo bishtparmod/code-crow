@@ -1,0 +1,94 @@
+<section class='page'>
+  <div class="container" *ngIf='sku && product'>
+    <h3 class="page-title text-center">Complete you Purchase</h3>
+
+    <mat-card class='plan-info'>
+      <div class="card-title row">
+        <div class="col-8">Package Info</div>
+        <div class="col-2">Price</div>
+        <div class="col-2">Actions</div>
+      </div>
+      <div class="card-body row">
+        <div class="col-8">
+          <h5>{{product.name}}</h5>
+          <div class="features">
+            <ul>
+              <li>{{StreamingTime}} Hours of live streaming time.</li>
+              <li>{{RecordingTime}} Hours of video recording time.</li>
+              <li>{{ParticipantsAllowed}} Participants allowed per live stream.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-2">
+          <span>${{sku.price / 100}}.00</span>
+          <span>One time payment</span>
+        </div>
+        <div class="col-2">
+          <button mat-button>Remove</button>
+        </div>
+      </div>
+    </mat-card>
+
+    <!-- <mat-card class='discount-card text-center'>
+      Have a discount code? Click to enter it.
+    </mat-card> -->
+
+    <div class="row">
+      <div class="col-4">
+        <mat-card>
+          <h6 class='text-center'>Select Payment Method</h6>
+
+          <mat-spinner *ngIf='!customer' style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+
+          <div class='payment-methods' *ngIf='customer'>
+            <ul *ngIf='customer.sources.data.length'>
+              <li *ngFor='let source of sources; let i = index' [class.selected]='source.selected'
+                (click)='selectCard(source, i)'>
+                <img [src]="'../../../assets/cc/' + source.brand + '.png'" [alt]="source.brand">
+                <span>**** **** **** {{source.last4}} | EXP:
+                  {{source.exp_month}}/{{source.exp_year}}</span>
+                <div class="clearfix"></div>
+              </li>
+            </ul>
+            <div *ngIf='!customer.sources.data.length' class="alert info">You don't have any valid payment method.</div>
+          </div>
+
+          <div>
+            <button style='width: 100%' mat-button (click)='openDialog()'>Add Payment Method</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="col-6" *ngIf='source'>
+        <mat-card>
+          <h6 class='text-center'>Cart Details</h6>
+          <div class="row" style='margin-bottom: 5px'>
+            <div class="col-12">
+              <strong>Payment Method: </strong>
+              <img style='width: 5%; position: relative; top: -5px; margin-right: 5px'
+                [src]="'../../../assets/cc/' + source.brand + '.png'" [alt]="source.brand">
+              <span style='font-size: 14px'>**** **** **** {{source.last4}} | EXP:
+                {{source.exp_month}}/{{source.exp_year}}</span>
+            </div>
+          </div>
+          <div class="row" style='margin-bottom: 5px'>
+            <div class="col-6">
+              <strong>Price: </strong>
+              <span>${{sku.price / 100}}.00 one-time payment</span>
+            </div>
+          </div>
+          <mat-spinner *ngIf='loading' style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+          <div class='alert alert-success' *ngIf='isPaid' style='font-size: 13px; margin-top: 1rem;'>
+            Payment successful, navigating you.
+          </div>
+          <div class="text-center" *ngIf='!loading'>
+            <button mat-button (click)='pay()' *ngIf='!isPaid'>Pay</button>
+          </div>
+          <div class="alert alert-danger" *ngIf='error' style='font-size: 13px; margin-top: 1rem;'>
+            {{error}}
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>

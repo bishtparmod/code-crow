@@ -1,0 +1,111 @@
+#noBullets li {
+    list-style-type: none;
+}
+
+mat-card {
+    align-self: flex-end
+}
+
+.app-friendchat {
+    width: 300px;
+    height: auto;
+    cursor: pointer;
+    background-color: #181b29;
+    margin: 0 5px;
+    bottom: 0px;
+    padding: 5px
+}
+
+.app-friendchat-toolbar {
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.app-friendchat-toolbar-row {
+    height: 30px !important;
+    align-items: unset;
+}
+
+.app-friendchat-toolbar-title {
+    line-height: 215%;
+    font-size: 14px;
+}
+
+.app-frienchat-toolbar-buttons {
+    margin: 0 !important;
+}
+
+.app-friendchat-chatlist {
+    height: 250px;
+    align-self: flex-start;
+    overflow-x: hidden;
+    overflow-y: scroll
+}
+
+.app-friendchat-input {
+    bottom: 0px;
+    align-self: flex-end;
+    width: 100%
+}
+
+:host {
+    width: 100%;
+    color: #fff
+}
+
+.app-chat-input {
+    display: flex;
+    flex-direction: column;
+    margin: 0px !important;
+    padding-right: 8px !important;
+}
+
+.app-mesage-input-content {
+    color: azure;
+    width: -webkit-calc(100% - 45px);
+    width: -moz-calc(100% - 45px);
+    width: calc(100% - 45px);
+    padding: 3px !important;
+    float: left;
+    @media (max-width: 576px) {
+        width: -webkit-calc(100% - 65px);
+        width: -moz-calc(100% - 65px);
+        width: calc(100% - 65px);
+    }
+}
+
+.app-message-send-btn {
+    position: absolute;
+    right: 0;
+    height: calc(100% - 8px);
+    float: left;
+    border: 0 !important;
+    margin: 0 !important;
+    @media (max-width: 576px) {
+        right: 25px;
+    }
+}
+
+.app-friendchat-msginput-collapse {
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+}
+
+.app-friendchat-msginput-expand {
+    max-height: 500px;
+    width: 100%;
+    transition: max-height 0.2s ease-in;
+}
+
+.app-chat-input-holder {
+    background-color: #181b29;
+}
+
+.app-friendchat-closed {
+    position: absolute;
+}
+
+.app-friendchat-open {
+    position: absolute;
+}

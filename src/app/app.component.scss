@@ -1,0 +1,31 @@
+.wrapper-app {
+  height: -webkit-calc(100% - 64px);
+  height:    -moz-calc(100% - 64px);
+  height:         calc(100% - 64px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  @media (max-width: 768px) {
+    height: -webkit-calc(100% - 56px);
+    height:    -moz-calc(100% - 56px);
+    height:         calc(100% - 56px);
+  }
+}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+  background-color: #202235 !important;
+  visibility: unset !important;
+  @media (max-width: 996px) {
+    visibility: hidden;
+  }
+}
+
+.sticky {
+  top: 0px;
+  overflow: hidden;
+  z-index: 10;
+}

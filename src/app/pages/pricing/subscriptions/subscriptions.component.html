@@ -1,0 +1,9 @@
+<div class="page-body">
+  <div class="row" style='margin: 0 auto; justify-content: flex-end;' *ngIf='subscriptions.length'>
+    <div class='col-4' *ngFor='let subscription of subscriptions; let i = index'>
+      <app-pricing-tiers *ngIf='i == 0' [plan]='subscription' [isSubscriptionLoaded]='isSubscriptionLoaded'></app-pricing-tiers>
+      <app-pricing-tiers *ngIf='i != 0' [plan]='subscription' [previousPlanName]='subscriptions[i - 1].nickname' [isSubscriptionLoaded]='isSubscriptionLoaded'>
+      </app-pricing-tiers>
+    </div>
+  </div>
+</div>

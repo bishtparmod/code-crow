@@ -1,0 +1,16 @@
+<div>
+  <h3 class="text-center">Add Section</h3>
+  <mat-form-field style="width: 100%">
+    <input type="text" matInput [(ngModel)]="title" placeholder="Section Title" />
+  </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <mat-label>Side</mat-label>
+    <mat-select [(ngModel)]="side">
+      <mat-option value="left">Left</mat-option>
+      <mat-option value="right">Right</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button style="width: 100%" mat-button (click)="addSection()">
+    Add
+  </button>
+</div>

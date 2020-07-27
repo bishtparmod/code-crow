@@ -1,0 +1,31 @@
+<mat-card class="app-frienditem" matRipple (click)="openFriendChat()">
+	<table class="full-width">
+		<tbody>
+			<tr>
+				<td class="app-frienditem-status-online" *ngIf='friend.user && friend.user.isOnline'></td>
+				<td class="app-frienditem-status-offline" *ngIf='!friend.user && friend.user.isOnline'></td>
+				<th scope="row">
+					<img class="app-frienditem-avatar" [src]="friend.user.avatar" alt="friend_avatar" />
+				</th>
+				<td class="list-group-item-heading app-frienditem-text">
+					<span class="app-frienditem-name" *ngIf='unSeenMessagesCount > 0' [matBadge]="unSeenMessagesCount"
+						matBadgeOverlap="false" matBadgeColor="warn"> {{friend.user.firstName}} </span>
+					<span class="app-frienditem-name" *ngIf='unSeenMessagesCount <= 0 || !unSeenMessagesCount'>
+						{{friend.user.firstName}} </span>
+					<br *ngIf='friend.messages && friend.messages.length > 0'>
+					<span class="app-frienditem-last-message" *ngIf='friend.messages && friend.messages.length > 0'>
+						{{lastMessage}} </span><br *ngIf='friend.messages && friend.messages.length > 0'>
+				</td>
+				<td class="app-frienditem-td">
+
+					<friends-menu-one [friend]='friend.user' *ngIf='!friend.status'></friends-menu-one>
+					<friends-menu-two [friend]='friend.user' *ngIf='friend.status == 1'></friends-menu-two>
+					<friends-menu-three [friend]='friend.user' *ngIf='friend.status == 2'></friends-menu-three>
+					<friends-menu-four [friend]='friend.user' *ngIf='friend.status == 3'></friends-menu-four>
+					<friends-menu-five [friend]='friend.user' *ngIf='friend.status == 4'></friends-menu-five>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</mat-card>

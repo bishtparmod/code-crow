@@ -1,0 +1,42 @@
+mat-card {
+  margin-top: 25px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.card-title {
+  font-size: 14px;
+  padding: 5px 15px;
+  background-color: #F0F3F5;
+  color: #333
+}
+
+div.info,
+div.graph {
+  padding: 16px
+}
+
+div.graph{
+  width: 100%
+}
+
+div.info {
+  margin-bottom: 10px
+}
+
+span.title {
+  display: block;
+  font-weight: bold;
+  font-size: 18px
+}
+
+span.date {
+  color: #666;
+  font-size: 12px
+}
+
+div.brief-insights span {
+  position: relative;
+  top: -5px;
+  left: 10px;
+}

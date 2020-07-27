@@ -1,0 +1,36 @@
+<mat-card>
+  <div class="card-title"><strong>{{creatorSpaceService.playlist.title}}</strong> - Playlist Videos</div>
+  <div class="card-body row">
+
+    <mat-card class='col-3'>
+      <div class="card-title">Your videos</div>
+      <div class="search" style='padding: 0 15px'>
+        <mat-form-field style='width: 100%'>
+          <input type="text" matInput placeholder="Search...">
+        </mat-form-field>
+      </div>
+      <div class="card-body" class='custom-scroll' style='padding: 0 10px' *ngIf='creatorSpaceService.playlist'>
+        <app-creator-playlists-video-item *ngFor='let video of videos' [video]='video'>
+        </app-creator-playlists-video-item>
+      </div>
+    </mat-card>
+
+    <mat-card class='col-9'>
+      <div class="card-title">Playlist Videos</div>
+      <div class="search" style='padding: 0 15px'>
+        <mat-form-field style='width: 100%'>
+          <input type="text" matInput placeholder="Search...">
+        </mat-form-field>
+      </div>
+      <div class="card-body col-12" style='padding: 0 15px'>
+        <div class="row">
+          <div class="col-4" *ngFor='let video of creatorSpaceService.playlist.videos'>
+            <app-creator-playlists-video-item [video]='video'>
+            </app-creator-playlists-video-item>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+  </div>
+</mat-card>

@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="card-title">Recent Activity</div>
+  <div class="card-body row" style='padding-top: 0'>
+    <div class='info'>
+      <span class='title'>Video Views Activity - All Videos</span>
+      <span class='date'>{{momentDate}}</span>
+    </div>
+    <div class='graph' style="display: block;">
+      <canvas baseChart height="250px" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+        [chartType]="lineChartType"></canvas>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,24 @@
+<form [formGroup]='addPlaylistForm' (submit)='addPlaylist()'>
+  <h3 class="text-center" style='font-size: 21px; margin-bottom: 25px;'>Create New Playlist</h3>
+
+  <div class="row">
+    <mat-form-field class='col-12'>
+      <input type="text" formControlName='title' matInput placeholder="Title">
+    </mat-form-field>
+
+    <mat-form-field class='col-12'>
+      <textarea placeholder="Description" matInput formControlName='description'></textarea>
+    </mat-form-field>
+
+    <mat-checkbox class='col-12' formControlName='status'>is public?</mat-checkbox>
+
+    <div class="text-center col-12">
+      <button mat-button *ngIf='!isCreating && !isCreated'>Create</button>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" *ngIf='isCreating && !isCreated' diameter="30">
+      </mat-spinner>
+    </div>
+
+    <div class="alert alert-success col-12" *ngIf='isCreated'>Your playlist has been successfully created.</div>
+  </div>
+  
+</form>

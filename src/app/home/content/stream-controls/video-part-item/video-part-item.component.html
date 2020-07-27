@@ -1,0 +1,76 @@
+<div style="padding: 15px">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-subtitle>
+        <mat-icon style="position: relative; top: 5px; margin-right: 5px;">create</mat-icon>
+        <span contenteditable="true" (blur)="videoPart.editName($event)">{{videoPart.name}}</span>
+        <div>
+          <span> {{toHHMMSS(videoPart.duration)}} </span>
+        </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image
+      [src]="videoPart.thumbnail ? sanitize('data:image/jpg;base64, ' + videoPart.thumbnail) : '../../../../../assets/placeholder.png'"
+      alt='thumbnail here'>
+    <mat-card-actions
+      *ngIf='!videoPart.isProcessing && !videoPart.isInProgress && !videoPart.isConverting && !videoPart.isUploading && !videoPart.isUploaded'>
+      <button mat-button (click)='videoPart.upload()'>
+        <mat-icon>cloud_upload</mat-icon>
+        <span class="nav-caption"> Upload </span>
+      </button>
+      <button mat-button (click)='videoPart.download()'>
+        <mat-icon>save</mat-icon>
+        <span class="nav-caption"> Download </span>
+      </button>
+    </mat-card-actions>
+    <mat-card-actions
+      *ngIf='videoPart.isProcessing || videoPart.isInProgress || videoPart.isConverting || videoPart.isUploading'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<!-- <mat-card class="app-video-part-item-container">
+  <div class='row app-video-part-item-row'>    
+    <div class="col-7">
+      <div class="row">
+        <mat-icon style="position: relative; top: 5px; margin-right: 5px;">create</mat-icon>
+        <span contenteditable="true" (blur)="videoPart.editName($event)">
+          <img [src]="videoPart.thumbnail ? sanitize('data:image/jpg;base64, ' + videoPart.thumbnail) : 'null'"
+            alt='thumbnail here' />
+          {{videoPart.ssid}}
+        </span>
+      </div>
+      <div class="row">
+        <span> {{toHHMMSS(videoPart.duration)}} </span>
+      </div>
+    </div>
+    <div class="col-5"
+      *ngIf='videoPart.isProcessing || videoPart.isInProgress || videoPart.isConverting || videoPart.isUploading'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+    <div class="col-5" *ngIf='videoPart.isUploaded'>
+      <mat-icon>done</mat-icon>
+    </div>
+    <div class="col-5"
+      *ngIf='!videoPart.isProcessing && !videoPart.isInProgress && !videoPart.isConverting && !videoPart.isUploading && !videoPart.isUploaded'>
+      <div class="app-video-part-item-button">
+        <button mat-icon-button matTooltip="File options" [matMenuTriggerFor]="more_menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      <mat-menu #more_menu="matMenu">
+        <section class="user-menu mat-menu-content">
+          <div class="dark-menu-item" (click)='videoPart.upload()'>
+            <mat-icon>cloud_upload</mat-icon>
+            <span class="nav-caption"> Upload </span>
+          </div>
+          <div class="dark-menu-item" (click)='videoPart.download()'>
+            <mat-icon>save</mat-icon>
+            <span class="nav-caption"> Download </span>
+          </div>
+        </section>
+      </mat-menu>
+    </div>
+  </div>
+</mat-card> -->

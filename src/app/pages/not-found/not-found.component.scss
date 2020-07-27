@@ -1,0 +1,31 @@
+.app-not-found {
+  height: 100%;
+  width: 100%;
+  background-color: #202235;
+}
+
+.app-not-found-container {
+  top: 25%;
+  position: relative;
+}
+
+.app-not-found-icon {
+  font-size: 50px;
+  color: #cccc00;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 30px;
+}
+
+.app-not-found-message {
+  text-align: center;
+  font-size: x-large;
+  font-weight: 300 !important;
+  margin-bottom: 0 !important;
+  color: white;
+  padding-bottom: 30px;
+}

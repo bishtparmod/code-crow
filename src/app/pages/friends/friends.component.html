@@ -1,0 +1,72 @@
+<div class="app-friends-list-container">
+    <!-- <div class="row col-sm-12"> -->
+    <!-- <div class="col-sm-3">
+      <button type="button" (click)="groupChat()" mdbBtn color="primary" rounded="true" mdbWavesEffect>
+        <mat-icon>group</mat-icon>
+      </button>
+    </div> -->
+    <!-- <div class="col-sm-12"> -->
+    <div class="md-form app-friends-search-bar sticky" (click)="$event.stopPropagation();">
+        <input type="search" [(ngModel)]="searchTitle" (change)="searchUsers()" placeholder="Search users" (click)="$event.stopPropagation();">
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+
+    <div *ngIf='friendService.isGettingFriends'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+
+    <div *ngIf='searchResults.length && !friendService.isGettingFriends'>
+        <hr class="hr-text" data-content="Search Results">
+        <div class="app-friends-list-item scrollbar-bordered-success thin">
+            <div>
+                <div *ngFor="let item of searchResults">
+                    <app-friend-item [friend]="item">
+                    </app-friend-item>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf='friendService.recievedRequests.length && !friendService.isGettingFriends'>
+        <hr class="hr-text" data-content="Recieved Requests">
+        <div class="app-friends-list-item scrollbar-bordered-success thin">
+            <div *ngFor="let item of friendService.recievedRequests">
+                <app-friend-item [friend]="item">
+                </app-friend-item>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf='friendService.friendsList.length && !friendService.isGettingFriends'>
+        <hr class="hr-text" data-content="Friends">
+        <div class="app-friends-list-item scrollbar-bordered-success thin">
+            <div *ngIf="friendService.friendsList">
+                <div *ngFor="let item of friendService.friendsList">
+                    <app-friend-item [friend]="item">
+                    </app-friend-item>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf='friendService.sentRequests.length && !friendService.isGettingFriends'>
+        <hr class="hr-text" data-content="Sent Requests">
+        <div class="app-friends-list-item scrollbar-bordered-success thin">
+            <div *ngFor="let item of friendService.sentRequests">
+                <app-friend-item [friend]="item">
+                </app-friend-item>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf='friendService.blockedUsers.length && !friendService.isGettingFriends'>
+        <hr class="hr-text" data-content="Blocked Users">
+        <div class="app-friends-list-item scrollbar-bordered-success thin">
+            <div *ngFor="let item of friendService.blockedUsers">
+                <app-friend-item [friend]="item">
+                </app-friend-item>
+            </div>
+        </div>
+    </div>
+</div>

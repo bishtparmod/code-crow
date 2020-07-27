@@ -1,0 +1,45 @@
+<div id="rectangle" [ngStyle]='style' style="padding: 0" (mouseenter)="isHover=true" (mouseleave)="isHover=false"
+  #videoPreview>
+
+  <div style='visibility: hidden;' #audioPreview></div>
+
+  <div class="buttons" [ngClass]="isHover ? 'buttons-visible' : 'buttons-hidden'">
+    <button title="Widescreen" mat-icon-button (click)='chatService.toggleChat()'>
+      <mat-icon>view_array</mat-icon>
+    </button>
+    <button title="Fullscreen" mat-icon-button (click)='toggleFullscreen()'>
+      <mat-icon>fullscreen</mat-icon>
+    </button>
+  </div>
+
+  <div class="rate" *ngIf='chatService.isHostDisconnected'>
+    <mat-card style='top: 38%; left: 35%;'>
+      <div class="alert alert-info text-center">
+        Host disconnected.
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="rate" *ngIf='showRate'>
+    <mat-card>
+      <h3 class='text-center'>Enjoying the stream?</h3>
+      <p class='text-center'>Let us know what you think about this stream so it can reach other people too!</p>
+      <form class='text-center' [formGroup]="rateForm">
+        <mat-radio-group aria-label="Your Stream Rate" formControlName='rate'>
+          <mat-radio-button value="1">1</mat-radio-button>
+          <mat-radio-button value="2">2</mat-radio-button>
+          <mat-radio-button value="3">3</mat-radio-button>
+          <mat-radio-button value="4">4</mat-radio-button>
+          <mat-radio-button value="5">5</mat-radio-button>
+        </mat-radio-group>
+        <div class="text-center">
+          <button type='submit' (click)="rate()" mat-button class='btn btn-success'>Rate!</button>
+        </div>
+        <div class="text-center" style="margin-top: 10px">
+          <button type='button' (click)="later()" mat-button class='btn btn-danger'>Remind me later</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+</div>

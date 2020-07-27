@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Create a new Group</h1>
+<div mat-dialog-content>
+
+  <div class="md-form app-friends-search-bar sticky" (click)="$event.stopPropagation();">
+    <input type="search" [(ngModel)]="searchTitle" (change)="searchUsers()" placeholder="Group name"
+      (click)="$event.stopPropagation();">
+  </div>
+
+  <div *ngIf='friendService.friendsList.length && !friendService.isGettingFriends'>
+    <hr class="hr-text" data-content="Friends">
+    <div class="app-friends-list-item scrollbar-bordered-success thin">
+      <div *ngFor="let item of friendService.friendsList">
+        <app-friend-group-item [friend]="item" (messageEvent)="receiveMessage($event)">
+        </app-friend-group-item>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div mat-dialog-actions [attr.align]="'end'" style="float: right; height: 100px;">
+    <button mat-raised-button mdbBtn class="cancel-button" style="float:left" mat-button
+      (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button mdbBtn color="info" style="float:right" (click)="createGroup()" mat-button
+      cdkFocusInitial>Create</button>
+  </div>
+
+</div>

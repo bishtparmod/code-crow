@@ -1,0 +1,126 @@
+<mat-card *ngIf='isLoading'>
+  <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+</mat-card>
+
+<mat-card *ngIf='!isPayedUser && !isLoading' style="height: auto; display: flex; flex-direction: column">
+  <h3 style='font-size: 16px;' class="text-center">Unlock more features by subscribing to our premium plans!
+    <br />
+    <p matTooltip="hh:mm" matTooltipPosition="after">Live stream remaining: <strong>{{convertMinsToHrsMins(remainingTime)}}</strong></p>
+  </h3>
+  <div class='features'>
+    <ul>
+      <li>Unlimited private channels.</li>
+      <li>Unlimited video uploads.</li>
+      <li>10 hours of video streaming.</li>
+      <li>Manage your streams and videos on our new creator space.</li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <button mat-button [routerLink]="['/pricing']">Read More</button>
+  </div>
+</mat-card>
+<div *ngIf='isPayedUser && !isLoading' >
+  <mat-card style="height: auto; width: fit-content; display: flex; flex-direction: column" matTooltip="hh:mm" matTooltipPosition="after">
+    <span style='font-size: 16px;'>
+      Live stream remaining: <strong>{{convertMinsToHrsMins(remainingTime)}}</strong>
+    </span>
+  </mat-card>
+</div>
+
+<mat-card class='alert alert-info'
+  *ngIf='(isPayedUser || remainingTime) && !isLoading && chatService.streamOptions.hasPreviousVideoParts'>
+  <div>
+    You have some previous unsaved recorded streams. Please decide whether to upload or delete them from here.
+  </div>
+  <div class='text-center'>
+    <button mat-button (click)='viewVideoParts()'>View Videos</button>
+  </div>
+</mat-card>
+
+<mat-card class='row' *ngIf='(isPayedUser || remainingTime) && !isLoading'>
+  <button mat-button class="half text-center" *ngIf='!progress && !chatService.streamOptions.isLiveStreaming'
+    (click)="startLiveStream()">
+    <div class="row justify-content-center">
+      <h5>
+        <mat-icon>live_tv</mat-icon>
+      </h5>
+    </div>
+    <div class="row justify-content-center">
+      <h6>
+        <span>Go Live</span>
+      </h6>
+    </div>
+  </button>
+
+  <button mat-button class="half text-center" *ngIf='!progress && chatService.streamOptions.isLiveStreaming'
+    (click)="toggleStream()">
+    <div class="row justify-content-center">
+      <h5>
+        <mat-icon>
+          {{chatService.streamOptions.videoStream && chatService.streamOptions.videoStream.isEnabled ? 'pause_presentation' : 'slideshow'}}
+        </mat-icon>
+      </h5>
+    </div>
+    <div class="row justify-content-center">
+      <h6>
+        <span>{{chatService.streamOptions.videoStream && chatService.streamOptions.videoStream.isEnabled ? 'Pause Stream' : 'Resume Stream'}}</span>
+      </h6>
+    </div>
+  </button>
+
+  <button mat-button class="half spererator text-center" *ngIf='!progress && chatService.streamOptions.isLiveStreaming'
+    (click)="endLiveStream()" [disabled]="!chatService.streamOptions.isLiveStreaming">
+    <div class=" row justify-content-center">
+      <h5>
+        <mat-icon>stop</mat-icon>
+      </h5>
+    </div>
+    <div class="row justify-content-center">
+      <h6>
+        <span>Stop Live Stream</span>
+      </h6>
+    </div>
+  </button>
+
+  <button mat-button class="half spererator text-center" *ngIf='!progress' (click)="chatService.toggleMute()"
+    [disabled]="!chatService.streamOptions.isLiveStreaming && !chatService.streamOptions.audioStream">
+    <div class="row justify-content-center">
+      <h5>
+        <mat-icon>
+          {{ (chatService.streamOptions.audioStream && chatService.streamOptions.audioStream.isEnabled) &&
+            (chatService.streamOptions.videoStream.isEnabled && chatService.streamOptions.audioStream.isEnabled) ?
+            'mic_off' : 'mic' }}
+        </mat-icon>
+      </h5>
+    </div>
+    <div class="row justify-content-center">
+      <h6>
+        <span>{{ (chatService.streamOptions.audioStream && chatService.streamOptions.audioStream.isEnabled) &&
+          (chatService.streamOptions.videoStream.isEnabled && chatService.streamOptions.audioStream.isEnabled)
+          ? ('Mute') : ('Unmute') }}</span>
+      </h6>
+    </div>
+  </button>
+
+  <button mat-button class="half spererator text-center" *ngIf='!progress' (click)="chatService.toggleMediaRecorder()"
+    [disabled]="!chatService.streamOptions.isLiveStreaming">
+    <div class=" row justify-content-center">
+      <h5>
+        <mat-icon>adjust</mat-icon>
+      </h5>
+    </div>
+    <div class="row justify-content-center">
+      <h6>
+        <span>{{ chatService.streamOptions.isRecording ? ('Pause Recording') : ('Start Recording') }}</span>
+      </h6>
+    </div>
+  </button>
+
+</mat-card>
+
+<div class="app-stream-controls-video-parts-container">
+  <div *ngFor="let videoPart of chatService.streamOptions.videoParts">
+    <app-video-part-item [videoPart]="videoPart">
+    </app-video-part-item>
+  </div>
+</div>

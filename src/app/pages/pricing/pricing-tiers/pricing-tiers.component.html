@@ -1,0 +1,33 @@
+<div>
+  <mat-card style='min-height: 320px;'>
+    <div class="card-title">{{plan.nickname}}</div>
+    <div class="card-price"><span>$</span><span>{{plan.amount / 100}}</span></div>
+    <div class="card-target">Per month, billed monthly.</div>
+    <div class="card-target">For channel participants.</div>
+    <!-- <div class="card-details"><a href="">Details</a></div> -->
+    <div class="card-sub" *ngIf='isSubscriptionLoaded'>
+      <button mat-button *ngIf='!plan.isSubscribed' (click)='subscribe(plan.id)'>Subscribe</button>
+    </div>
+  </mat-card>
+  <div class="header">
+    <h5>{{plan.nickname}} Includes</h5>
+    <p *ngIf='!previousPlanName'>All of these great features:</p>
+    <p *ngIf='previousPlanName'>All the features in (<strong>{{previousPlanName}}</strong>) including:</p>
+  </div>
+  <div class="features" *ngIf='!previousPlanName'>
+    <ul>
+      <li>Unlimited public channels.</li>
+      <li>Unlimited channel chat.</li>
+      <li>Unlimited video views.</li>
+    </ul>
+  </div>
+  <div class="features" *ngIf='previousPlanName'>
+    <ul>
+      <li style="font-weight: bold;">Early adopter pricing.</li>
+      <li>Unlimited private channels.</li>
+      <li>Unlimited video uploads.</li>
+      <li>10 hours of video streaming.</li>
+      <li>Manage your streams and videos on our new creator space.</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<!-- <div class="channel-info">
+    <div class="buttons">
+        <button mat-icon-button (click)="showChannelSettingsDialog()" matTooltip="Channel settings">
+      <mat-icon>settings</mat-icon>
+    </button>
+        <button mat-icon-button *ngIf='!isOwner' (click)="startOrJoinStream()" matTooltip="Show stream">
+      <mat-icon>ondemand_video</mat-icon>
+    </button> -->
+<!-- <button mat-icon-button *ngIf='!isOwner' (click)="showDonateDialog()" matTooltip="Donate to host">
+      <mat-icon>local_atm</mat-icon>
+    </button> -->
+<!-- <button mat-icon-button class='exit-button' (click)="leaveChannel()" matTooltip="Leave channel">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+    </div>
+    <div class="channel-name">
+        <p class="app-chat-title">{{chatService.currentChannel.friendlyName}}</p>
+        <p *ngIf='chatService.currentChannel.attributes.isPrivate && !chatService.isPasswordProtected'>Passcode: {{chatService.currentChannel.attributes.password}}
+        </p>
+    </div>
+</div>
+<div *ngIf='chatService.loadingTexts' style='margin-top: 100px'>
+    <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+</div>
+<div class="md-form app-chat-input-password" style="margin-top: 20%;" *ngIf='!chatService.isHost && chatService.isPasswordProtected'>
+    <input type="search" [(ngModel)]="password" placeholder="Passcode">
+    <button mat-raised-button (click)="chatService.submitPassword(password)" mdbBtn color="info" style="margin-left:25px;" rounded="true" mdbWavesEffect type="button">
+    <mat-icon>keyboard_return</mat-icon>
+    Enter
+  </button>
+</div>
+<div class='app-chat-messages-holder custom-scroll' [hidden]='chatService.loadingTexts && chatService.isPasswordProtected' #chatDisplay>
+    <div style="min-width:400px;" *ngFor="let item of chatService.messages">
+        <div class="app-chat-message-row d-flex justify-content-end">
+            <app-message [Sender]="item.author" [wasPreviousMsg]="true" [When]="item.timestamp" [Content]="item.body" [Avatar]="item.attributes.avatar" [Username]="username" [MemberSid]="item.memberSid" [Message]="item" [Email]="item.attributes.email" [Image]="item.attributes.media" [MimeType]="item.attributes.type"
+                [File]="item.attributes.file" [FileName]="item.attributes.text">
+            </app-message>
+        </div>
+    </div>
+</div>
+<div class="app-chat-input-holder d-flex align-items-end">
+    <app-input [show]="true"></app-input>
+</div>
+ -->
+
+
+
+
+
+
+<div class="box">
+    <div class="row header channel-info">
+        <div class="buttons">
+            <button mat-icon-button (click)="showChannelSettingsDialog()" matTooltip="Channel settings">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf='!isOwner' (click)="startOrJoinStream()" matTooltip="Show stream">
+                <mat-icon>ondemand_video</mat-icon>
+            </button>
+            <!-- <button mat-icon-button *ngIf='!isOwner' (click)="showDonateDialog()" matTooltip="Donate to host">
+          <mat-icon>local_atm</mat-icon>
+        </button> -->
+            <button mat-icon-button class='exit-button' (click)="leaveChannel()" matTooltip="Leave channel">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </div>
+        <div class="channel-name">
+            <p class="app-chat-title">{{chatService.currentChannel.friendlyName}}</p>
+            <p *ngIf='chatService.currentChannel.attributes.isPrivate && !chatService.isPasswordProtected'>Passcode:
+                {{chatService.currentChannel.attributes.password}}
+            </p>
+        </div>
+        <div *ngIf='chatService.loadingTexts' style='margin-top: 100px'>
+            <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+        </div>
+        <div class="md-form app-chat-input-password" style="margin-top: 20%;"
+            *ngIf='!chatService.isHost && chatService.isPasswordProtected'>
+            <input type="search" [(ngModel)]="password" placeholder="Passcode">
+            <button mat-raised-button (click)="chatService.submitPassword(password)" mdbBtn color="info"
+                style="margin-left:25px;" rounded="true" mdbWavesEffect type="button">
+                <mat-icon>keyboard_return</mat-icon>
+                Enter
+            </button>
+        </div>
+    </div>
+    <div class='row content custom-scroll' style="overflow-y: auto; overflow-x: hidden; padding: 0 10;"
+        [hidden]='chatService.loadingTexts || chatService.isPasswordProtected' #chatDisplay>
+        <div style="height: auto">
+            <div style="min-width:400px;" *ngFor="let item of chatService.messages">
+                <div class="app-chat-message-row d-flex justify-content-end">
+                    <app-message [Sender]="item.author" [wasPreviousMsg]="true" [When]="item.timestamp"
+                        [Content]="item.body" [Avatar]="item.attributes.avatar" [Username]="username"
+                        [MemberSid]="item.memberSid" [Message]="item" [Email]="item.attributes.email"
+                        [Image]="item.attributes.media" [MimeType]="item.attributes.type" [File]="item.attributes.file"
+                        [FileName]="item.attributes.text">
+                    </app-message>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row footer" [hidden]='chatService.loadingTexts || chatService.isPasswordProtected'>
+        <app-input [show]="true"></app-input>
+    </div>
+</div>

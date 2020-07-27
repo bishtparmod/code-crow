@@ -1,0 +1,22 @@
+<mat-card class="app-frienditem" [ngClass]="{'highlight' : selected[friend], 'not-highlight' : !selected[friend]}"
+  (click)="onSelect(friend)">
+  <table class="full-width">
+    <tbody>
+      <tr>
+        <td class="app-frienditem-status-online" *ngIf='friend.user && friend.user.isOnline'></td>
+        <td class="app-frienditem-status-offline" *ngIf='!friend.user && friend.user.isOnline'></td>
+        <th scope="row">
+          <img class="app-frienditem-avatar" [src]="friend.user.avatar" alt="friend_avatar" />
+        </th>
+        <td class="list-group-item-heading app-frienditem-text">
+          <span class="app-frienditem-name" [matBadge]="unSeenMessagesCount" matBadgeOverlap="false"
+            matBadgeColor="warn"> {{friend.user.firstName}}
+          </span>
+        </td>
+        <td class="app-frienditem-td">
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</mat-card>

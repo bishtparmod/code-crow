@@ -1,0 +1,14 @@
+button {
+  width: 100%;
+  outline: none
+}
+
+button span {
+  margin-left: 5px;
+}
+
+button mat-icon {
+  float: left;
+  position: relative;
+  top: 5px
+}

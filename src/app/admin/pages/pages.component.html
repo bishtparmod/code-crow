@@ -1,0 +1,110 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content style='padding: 20px 10px'>
+
+    <mat-card>
+      <div class="card-title">Pages</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3" *ngFor='let page of pages'>
+            <button mat-button (click)='viewPage(page._id)'>{{page.title}}</button>
+          </div>
+        </div>
+
+        <mat-card *ngIf='page && !isLoadingPageSection'>
+          <div class="card-title">{{page.title}}</div>
+          <div class="card-body row" style='padding-top: 0;'>
+
+            <button (click)="addSection()" style='width: 80%; margin: 0 auto; font-size: 15px' mat-button>Add
+              Section</button>
+
+            <div class="rightSections col-6" cdkDropList #rightSectionsList="cdkDropList"
+              [cdkDropListData]="rightSections" [cdkDropListConnectedTo]="[leftSectionsList]"
+              (cdkDropListDropped)="drop($event)">
+              <div *ngFor='let section of rightSections; let i = index' cdkDrag>
+                <mat-card>
+                  <div class="card-title row">
+                    <div class="section-title col-8" *ngIf='!section.editingTitle'>{{section.title}}</div>
+                    <div class="col-8" *ngIf='section.editingTitle'>
+                      <mat-form-field>
+                        <input type="text" placeholder="Section Title" matInput [(ngModel)]='section.newtitle'>
+                      </mat-form-field>
+                    </div>
+                    <div class="section-options col-4" *ngIf='section.editingTitle' style="text-align: right">
+                      <mat-icon (click)='saveTitle(section)'>save</mat-icon>
+                    </div>
+                    <div class="section-options col-4" *ngIf='!section.editingTitle' style="text-align: right">
+                      <mat-icon (click)='editTitle(section)'>edit</mat-icon>
+                      <mat-icon (click)='minimize(section)'>minimize</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding-top: 0">
+                    <div cdkDrag *ngIf='!section.minimize'>
+                      <button mat-button (click)="addParagraph(section)">
+                        <!-- <mat-icon>note-add</mat-icon> -->
+                        <span>Add Paragraph</span>
+                      </button>
+                      <div cdkDropList (cdkDropListDropped)="dropParagraph($event, section.content)">
+                        <mat-card style="padding: 5px; position: relative;"
+                          *ngFor="let content of section.content; let ii = index" cdkDrag>
+                          <mat-icon style="position: absolute; top: 5px; right: 5px; cursor: pointer;"
+                            (click)='editParagraph(section, ii, content)'>edit</mat-icon>
+                          <div style='padding-top: 25px'>{{content}}</div>
+                        </mat-card>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+            <div class="leftSections col-6" cdkDropList #leftSectionsList="cdkDropList" [cdkDropListData]="leftSections"
+              [cdkDropListConnectedTo]="[rightSectionsList]" (cdkDropListDropped)="drop($event)">
+              <div *ngFor='let section of leftSections; let i = index' cdkDrag>
+                <mat-card>
+                  <div class="card-title row">
+                    <div class="section-title col-8" *ngIf='!section.editingTitle'>{{section.title}}</div>
+                    <div class="col-8" *ngIf='section.editingTitle'>
+                      <mat-form-field>
+                        <input type="text" placeholder="Section Title" matInput [(ngModel)]='section.newtitle'>
+                      </mat-form-field>
+                    </div>
+                    <div class="section-options col-4" *ngIf='section.editingTitle' style="text-align: right">
+                      <mat-icon (click)='saveTitle(section)'>save</mat-icon>
+                    </div>
+                    <div class="section-options col-4" *ngIf='!section.editingTitle' style="text-align: right">
+                      <mat-icon (click)='editTitle(section)'>edit</mat-icon>
+                      <mat-icon (click)='minimize(section)'>minimize</mat-icon>
+                      <mat-icon>delete</mat-icon>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding-top: 0">
+                    <div *ngIf='!section.minimize'>
+                      <button mat-button (click)="addParagraph(section)">
+                        <!-- <mat-icon>note-add</mat-icon> -->
+                        <span>Add Paragraph</span>
+                      </button>
+                      <div cdkDropList (cdkDropListDropped)="dropParagraph($event, section.content)">
+                        <mat-card style="padding: 5px; position: relative;"
+                          *ngFor="let content of section.content; let ii = index" cdkDrag>
+                          <mat-icon style="position: absolute; top: 5px; right: 5px; cursor: pointer;"
+                            (click)='editParagraph(section, ii, content)'>edit</mat-icon>
+                          <div style='padding-top: 25px'>{{content}}</div>
+                        </mat-card>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+  </mat-drawer-content>
+</mat-drawer-container>

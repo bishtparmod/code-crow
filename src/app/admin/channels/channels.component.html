@@ -1,0 +1,177 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer position="start" mode="side" opened>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content style='padding: 20px 10px'>
+
+    <mat-card >
+      <div class="card-title">Channels</div>
+      <div class="card-body row" *ngIf='channels'>
+        <mat-form-field style='width: 96%; margin: 0 2%'>
+          <input type="text" (keyup)="filterChannels($event.target.value)" matInput placeholder="Search...">
+        </mat-form-field>
+      <table mat-table [dataSource]="dataSource" style="width: 100%" >
+        <ng-container matColumnDef="title">
+          <th class="table-td" mat-header-cell *matHeaderCellDef></th>
+          <td class="table-td col-12" mat-cell *matCellDef="let element">
+            <mat-card class="col-12" style='padding: 5px 15px; cursor: pointer;' (click)='showChannel(element)'>
+            <div class="title">
+              <h3>{{element.friendlyName}}</h3>
+              <div class='user'>
+                <mat-icon>account_circle</mat-icon>
+                <span>{{element.createdBy}}</span>
+              </div>
+            </div>
+            <div class="body">
+              <div class="row">
+                <div class="col-4 text-center">
+                  <mat-icon>group</mat-icon>
+                  <span>{{element.membersCount}}</span>
+                </div>
+                <div class="col-4 text-center">
+                  <mat-icon>message</mat-icon>
+                  <span>{{element.messagesCount}}</span>
+                </div>
+                <div class="col-4 text-center">
+                  <mat-icon>videocam</mat-icon>
+                  <span>0</span>
+                </div>
+              </div>
+            </div>
+            </mat-card>
+          </td>
+        </ng-container>
+        <tr class="table-header-row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="table-row col-3" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+        
+      </div>
+      <mat-paginator 
+            (page)="changePage($event)" 
+            [pageIndex]="pageNumber" 
+            [length]="totalCount" 
+            [pageSize]="pageLimit" 
+            [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </mat-card>
+
+  </mat-drawer-content>
+
+  <mat-drawer position="end" *ngIf='isEditingChannel' mode="side" [opened]="isEditingChannel"
+    style="width: 25%; padding: 25px 25px 0px 25px;">
+    <div style="height: 100%; overflow-y: scroll;">
+      <h3 class="text-center">{{channel.friendlyName}}</h3>
+      <button class='btn btn-danger' style="width: 100%; margin-bottom: 15px;" (click)='deleteChannel()'
+        mat-button>Delete Channel</button>
+      <div class="body">
+        <div class="row">
+          <div class="col-4 text-center">
+            <mat-icon>group</mat-icon>
+            <span>{{channel.membersCount}}</span>
+          </div>
+          <div class="col-4 text-center">
+            <mat-icon>message</mat-icon>
+            <span>{{channel.messagesCount}}</span>
+          </div>
+          <div class="col-4 text-center">
+            <mat-icon>videocam</mat-icon>
+            <span>{{liveStreaming.length}}</span>
+          </div>
+        </div>
+
+        <mat-card class='row'>
+          <div class="card-title">Messages Activity</div>
+          <div class="card-body" style='padding: 0 5px'>
+            <div>
+              <canvas baseChart height="100" [datasets]="lineChartData" [labels]="lineChartLabels"
+                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class='row'>
+          <div class="card-title">Streaming Activity</div>
+          <div class="card-body" style='padding: 0 5px'>
+            <div>
+              <canvas baseChart height="100" [datasets]="streamingLineChartData" [labels]="lineChartLabels"
+                [options]="streamLineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+            </div>
+          </div>
+        </mat-card>
+
+        <div>
+
+          <mat-card class="row">
+            <div class="card-title">Active Users</div>
+            <div class="card-body" style='padding: 5px'>
+              <div class="row">
+                <mat-form-field style="width: 80%; margin-left: 10%;">
+                  <input type="text" matInput placeholder="Search...">
+                </mat-form-field>
+              </div>
+              <div class="user col-12" *ngFor='let member of channelUsers'>
+                <div class="row">
+                  <div class="username col-6 align-items-center">
+                    <div class="avatar d-inline-block">
+                      <img class='user-avatar' [src]="member.avatar" alt="User Avatar">
+                    </div>
+                    <div class="name d-inline-block">
+                      <span class='user-name'>
+                        {{member.firstName}}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="options col-6" style="padding: 0 !important; text-align: right">
+                    <button style="outline: none" mat-icon-button color="primary" (click)="blockUser(member._id)"
+                      matTooltip="Block" style="position: relative; right: 15px">
+                      <mat-icon>block</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+
+          <mat-card class="row app-channels-blocked-user-container">
+            <div class="card-title">Blocked Users</div>
+            <div class="card-body" style='padding: 5px'>
+              <div class="row">
+                <mat-form-field style="width: 80%; margin-left: 10%;">
+                  <input type="text" matInput placeholder="Search...">
+                </mat-form-field>
+              </div>
+
+              <div class="user col-12" *ngFor='let block of blockedUsers'>
+                <div class="row">
+                  <div class="username col-6 align-items-center">
+                    <div class="avatar d-inline-block">
+                      <img class='user-avatar' [src]="block.user.avatar" alt="User Avatar">
+                    </div>
+                    <div class="name d-inline-block">
+                      <span class='user-name'>
+                        {{block.user.firstName}}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="options col-6" style="padding: 0 !important; text-align: right">
+                    <button style="outline: none" mat-icon-button color="primary"
+                      (click)="unblockUser(block._id, block.user)" matTooltip="Block"
+                      style="position: relative; right: 15px">
+                      <mat-icon>block</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+
+        </div>
+      </div>
+
+    </div>
+  </mat-drawer>
+
+</mat-drawer-container>

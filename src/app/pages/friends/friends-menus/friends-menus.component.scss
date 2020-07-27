@@ -1,0 +1,73 @@
+.app-frienditem-td-button {
+  color: white;
+  outline: none;
+  float: right;
+}
+
+.dark-menu-item mat-icon {
+  float: left;
+  margin-right: 10px;
+}
+
+.dark-menu-item span {
+  float: left;
+  position: relative;
+  top: 2px;
+}
+
+.user-menu {
+  background-color: #fafafa;
+  padding: 4pt;
+  font-size: 10pt;
+  z-index: 1000;
+  border-radius: 4pt;
+  padding: 0.5em 0 0.5em 0;
+  animation: fadeIn 0.1s ease-out;
+  opacity: 1;
+  display: block;
+}
+
+.user-menu hr {
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.user-menu div {
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 0.5em 2em 0.5em 0.75em;
+  max-width: 18em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-menu div:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.user-menu div::before {
+  content: "";
+  float: left;
+  margin-right: 0.75em;
+  width: 0.5em;
+  height: 1em;
+  display: inline-block;
+}
+
+.user-menu div::after {
+  content: "";
+  float: right;
+  margin-right: 0.75em;
+  width: 0.5em;
+  height: 1em;
+  display: inline-block;
+}
+
+.mat-menu-content {
+  margin-top: -8px;
+  margin-bottom: -8px;
+}

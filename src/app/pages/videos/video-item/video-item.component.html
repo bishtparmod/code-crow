@@ -1,0 +1,31 @@
+<mat-card *ngIf='video' class="app-videoitem" matRipple (click)="playVideo(video._id)"
+	[class.selected]="isCurrentVideo">
+	<div class="app-videoitem-thumbnail-container">
+		<img class="app-videoitem-thumbnail"
+			[src]="video.thumbnail && video.thumbnail.Location ? video.thumbnail.Location : 'http://www.kreilkamp.com/wp-content/uploads/2016/11/thumbnail-placeholder-500x334.jpg'"
+			alt="video_placeholder" />
+		<mat-card class="app-videoitem-personal-container" *ngIf='video.isPersonal'>
+			<div class="app-videoitem-personal">
+				personal
+			</div>
+		</mat-card>
+		<mat-card class="app-videoitem-duration-container">
+			<div class="app-videoitem-duration">
+				{{toHHMMSS(video.duration)}}
+			</div>
+		</mat-card>
+	</div>
+	<div class="app-videoitem-title">
+		{{video.title}}
+	</div>
+	<div class="app-videoitem-detail">
+		{{video.user?.firstName}}
+	</div>
+	<div class="app-videoitem-detail">
+		{{views || 0}} views • {{video.createdAt | date: 'MM-dd-yy'}}
+	</div>
+	<div class="app-videoitem-detail">
+		<span>{{likes || 0}}%</span>
+		<mat-icon style='position: relative; top: 3px; left: 6px;'>thumb_up</mat-icon>
+	</div>
+</mat-card>

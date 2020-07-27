@@ -1,0 +1,6 @@
+<h2 mat-dialog-title [innerHTML]="data.title"></h2>
+<mat-dialog-content [innerHTML]="data.message"></mat-dialog-content>
+<div mat-dialog-actions [attr.align]="'end'">
+  <button mat-raised-button mdbBtn mat-dialog-close class="cancel-button" style="float:left" *ngIf="data.showCancelBtn" mat-button>{{data.cancelText}}</button>
+  <button mat-raised-button mdbBtn color="info" style="float:right" *ngIf="data.showOKBtn" (click)="close()" mat-button cdkFocusInitial>{{data.okText}}</button>
+</div>

@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="card-title" style="padding-bottom: 0">
+    <mat-icon style='cursor: pointer;' (click)='selectImage()'>add</mat-icon>
+    <span style="position: relative;top: -6px;left: 10px;">Images</span>
+    <input type="file" #fileInput (change)='uploadImage($event)' style="visibility: hidden;">
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3" *ngFor='let image of images'>
+        <img (click)='copyToClipboard(image)' [src]="image">
+      </div>
+    </div>
+  </div>
+</mat-card>

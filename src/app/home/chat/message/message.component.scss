@@ -1,0 +1,201 @@
+:host {
+    display: block;
+}
+
+.app-message-delete-button-container {
+    padding-right: 0;
+}
+
+.app-message-message-container {
+    padding-left: 0;
+}
+
+.app-message-delete-button {
+    cursor: pointer;
+    padding: 0;
+    width: 40px!important;
+    min-width: unset!important;
+    color: #fff;
+}
+
+.app-message {
+    padding-top: 10px;
+    width: 100%;
+}
+
+.app-message-userinfo-left {
+    width: 100%;
+    height: 32px;
+    float: left;
+}
+
+.app-message-userinfo-right {
+    width: 100%;
+    height: 32px;
+    float: right;
+}
+
+.app-message-sender-menu-left {
+    float: left;
+}
+
+.app-message-sender-menu-right {
+    float: right;
+}
+
+.app-message-sender-avatar-left {
+    float: left;
+    width: 27px;
+    position: relative;
+    top: -4px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.app-message-sender-avatar-right {
+    float: right;
+    width: 27px;
+    position: relative;
+    top: -4px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.app-message-sender-name-left {
+    float: left;
+    padding-left: 5px;
+    color: aquamarine;
+}
+
+.app-message-sender-name-right {
+    float: right;
+    padding-left: 5px;
+    color: aquamarine;
+}
+
+.dark-menu-item mat-icon {
+    float: left;
+    margin-right: 10px;
+}
+
+.dark-menu-item span {
+    float: left;
+    position: relative;
+    top: 2px;
+}
+
+.user-menu {
+    background-color: #fafafa;
+    padding: 4pt;
+    font-size: 10pt;
+    z-index: 1000;
+    border-radius: 4pt;
+    padding: 0.5em 0 0.5em 0;
+    animation: fadeIn 0.1s ease-out;
+    opacity: 1;
+    display: block;
+}
+
+.user-menu hr {
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.user-menu div {
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 0.5em 2em 0.5em 0.75em;
+    max-width: 18em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-menu div:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.user-menu div::before {
+    content: "";
+    float: left;
+    margin-right: 0.75em;
+    width: 0.5em;
+    height: 1em;
+    display: inline-block;
+}
+
+.mat-menu-content {
+    margin-top: -8px;
+    margin-bottom: -8px;
+}
+
+.app-message-content-left {
+    width: -webkit-calc(100% - 50px);
+    width: -moz-calc(100% - 50px);
+    width: calc(100% - 50px);
+    float: left;
+    overflow-y: auto;
+    padding: 2px 5px;
+    font-size: 15px;
+    text-align: start;
+    margin: 0 5px;
+    color: #fff;
+    background-color: #8e44ad;
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+.app-message-content-right {
+    width: -webkit-calc(100%);
+    width: -moz-calc(100%);
+    width: calc(100%);
+    float: right;
+    overflow-y: auto;
+    padding: 2px 5px;
+    font-size: 15px;
+    text-align: end;
+    margin: 0 5px;
+    color: #fff;
+    background-color: #2980b9;
+    border-radius: 8px;
+    white-space: pre-wrap;
+}
+
+.app-message-createdate {
+    min-height: 15px;
+    float: right;
+    width: 100%;
+}
+
+.app-message-createdate-left {
+    float: left;
+    padding-left: 5px;
+    font-size: 7pt;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.app-message-createdate-right {
+    float: right;
+    padding-left: 5px;
+    font-size: 7pt;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.image-attachment {
+    height: 250px;
+    width: 50%;
+}
+
+.friend-chat-message .upper-div-message {
+    width: 100%;
+    display: flow-root;
+}

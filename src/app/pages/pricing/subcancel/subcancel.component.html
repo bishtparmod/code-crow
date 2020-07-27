@@ -1,0 +1,42 @@
+<div class='plan-info'>
+  <h6 class="text-center" *ngIf='!invalidPlan'>You're already subscribed to a plan.</h6>
+  <h6 class="text-center" *ngIf='invalidPlan'>You're already subscribed to this plan.</h6>
+  <div class="card-title row">
+    <div class="col-6">Subscription Info</div>
+    <div class="col-2">Price</div>
+    <div class="col-2">Start Date</div>
+    <div class="col-2">End Date</div>
+  </div>
+  <div class="card-body row">
+    <div class="col-6">
+      <h5>{{subscription.plan.name}} Tier Subscription</h5>
+      <div class="features">
+        <ul>
+          <li>Unlimited private channels.</li>
+          <li>Unlimited video uploads.</li>
+          <li>10 hours of video streaming.</li>
+          <li>Manage your streams and videos on our new creator space.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-2">
+      <span>${{subscription.plan.amount / 100}}.00 / month</span>
+      <span>Billed Monthly</span>
+    </div>
+    <div style='font-size: 13px' class="col-2">
+      {{subscription.current_period_start | date:'shortDate'}}
+    </div>
+    <div style='font-size: 13px' class="col-2">
+      {{subscription.current_period_end | date:'shortDate'}}
+    </div>
+  </div>
+  <div *ngIf='!invalidPlan'>
+    <h6 style='text-align: center; font-size: 15px;'>
+      Your current subscription will be cancelled after activating your new subscription, are you sure you want to
+      continue?
+    </h6>
+    <div class="text-center">
+      <button style='border: 1px solid' (click)='navigate()' mat-button>Continue</button>
+    </div>
+  </div>
+</div>

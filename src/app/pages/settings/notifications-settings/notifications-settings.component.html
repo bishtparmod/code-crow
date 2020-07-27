@@ -1,0 +1,53 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <settings-side-nav></settings-side-nav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <h3 class="page-title">Notification Settings</h3>
+
+    <mat-card class='plan-info'>
+      <div class="card-title row">
+        <div class="col-12">Profile Notifications</div>
+      </div>
+      <div class="card-body row">
+        <div class="col-12">
+          <mat-checkbox>When someone comments on my posts?</mat-checkbox>
+          <mat-checkbox>When someone comments on a post I'm following?</mat-checkbox>
+          <mat-checkbox>When someone mentions me in a comment?</mat-checkbox>
+          <mat-checkbox>When someone posts on my profile?</mat-checkbox>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class='plan-info'>
+      <div class="card-title row">
+        <div class="col-12">Messages Notifications</div>
+      </div>
+      <div class="card-body row">
+        <div class="col-12">
+          <mat-checkbox>When someone sends me a private message?</mat-checkbox>
+          <mat-checkbox>When someone sends a message in a channel I joined?</mat-checkbox>
+          <mat-checkbox>When someone mentions me in a channel I joined?</mat-checkbox>
+          <mat-checkbox>When someone invites me to join a channel?</mat-checkbox>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class='plan-info'>
+      <div class="card-title row">
+        <div class="col-12">Account Notifications</div>
+      </div>
+      <div class="card-body row">
+        <div class="col-12">
+          <mat-checkbox>When someone sends me a friend request?</mat-checkbox>
+          <mat-checkbox>When someone donates to a channel I own? <span style='font-size: 9px; color: #F00'>*Only paid
+              subscribers can recieve payments from their channels.</span></mat-checkbox>
+        </div>
+      </div>
+    </mat-card>
+
+    <div class="text-center">
+      <button style='border: 1px solid #2ecc71; color: #2ecc71' mat-button>Save</button>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,67 @@
+mat-card {
+  margin: 25px 10px 0px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.card-title {
+  font-size: 14px;
+  padding: 5px 15px;
+  background-color: #F0F3F5;
+  color: #333
+}
+
+div.title h3 {
+  font-size: 23px;
+}
+
+div.title div.user mat-icon {
+  font-size: 18px;
+}
+
+div.title div.user span {
+    font-size: 14px;
+    position: relative;
+    top: -4px;
+    color: #555;
+}
+
+div.body div.row div mat-icon {
+  font-size: 22px;
+}
+
+div.body div.row div span:not(.user-name) {
+  position: relative;
+  top: -4px;
+  left: 5px;
+}
+
+.user-avatar {
+  position: relative;
+  top: 5px;
+  border-radius: 100%;
+  width: 20px
+}
+
+.user-name {
+  top: 5px;
+  position: relative;
+  left: 5px;
+}
+
+.app-channels-blocked-user-container {
+  margin-bottom: 25px;
+}
+
+.table-td {
+  border: none !important;
+}
+
+.table-header-row {
+  height: 0 !important;
+  opacity: 0;
+}
+
+.table-row {
+  display: inline-table !important;
+}

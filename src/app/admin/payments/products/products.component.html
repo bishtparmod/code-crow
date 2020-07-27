@@ -1,0 +1,26 @@
+<mat-card *ngIf='selectedProduct'>
+
+  <div class="card-title" style="padding-bottom: 0">
+    <mat-icon style='cursor: pointer;' (click)='goBack()'>keyboard_arrow_left</mat-icon>
+    <mat-icon style='cursor: pointer;' (click)='addProduct()'>add</mat-icon>
+    <span style="position: relative;top: -6px;left: 10px;"><strong>{{productName}}</strong> SKUS</span>
+  </div>
+
+  <div class="card-body" *ngIf='selectedProduct'>
+    <app-list-variants [productId]='selectedProduct'></app-list-variants>
+  </div>
+
+</mat-card>
+
+<mat-card *ngIf='!selectedProduct'>
+
+  <div class="card-title" style="padding-bottom: 0">
+    <mat-icon style='cursor: pointer;' (click)='addProduct()'>add</mat-icon>
+    <span style="position: relative;top: -6px;left: 10px;">Products</span>
+  </div>
+
+  <div class="card-body">
+    <app-list-products [selectProduct]='selectProduct.bind(this)'></app-list-products>
+  </div>
+
+</mat-card>

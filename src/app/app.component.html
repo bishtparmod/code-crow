@@ -1,0 +1,17 @@
+<mat-sidenav-container>
+  <mat-sidenav-content class="custom-scroll">
+    <app-header class="sticky" (sidenavToggle)="sidenav.toggle()"></app-header>
+    <mat-sidenav #sidenav role="navigation" (keydown.escape)="sidenav.close()">
+      <app-sidenav-list [user]="user" (sidenavClose)="sidenav.close()"></app-sidenav-list>
+    </mat-sidenav>
+    <div class="wrapper-app custom-scroll" style="background-color: #202235;" (click)="sidenav.close()">
+      <router-outlet *ngIf='!loadingChatClient'></router-outlet>
+      <div *ngIf='loadingChatClient && !error'>
+        <mat-spinner style="margin: 50px auto;" mode="indeterminate" diameter="60"></mat-spinner>
+      </div>
+      <div class='alert alert-danger' *ngIf='!chatService.chatClient && error'>
+        Connection error. Please try again later.
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,42 @@
+.btn-group {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.btn-group button {
+    cursor: pointer;
+    float: left;
+    margin: 5px;
+    background-color: #4285F4;
+    color: #FFFFFF;
+    width: 20%;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.cancel-button {
+    background-color: rgb(218, 218, 218) !important;
+}
+
+.app-news-dialog-image {
+    width: 100%;
+}
+
+.app-news-dialog-detail {
+    width: 100%;
+    display: block;
+}
+
+.app-news-dialog-createdAt {
+    width: 100%;
+    display: block;
+}
+
+.app-news-dialog-thumbnail {
+    color: #4285F4;
+    margin: 0 10px 0 5px;
+    float: left;
+    position: relative;
+}

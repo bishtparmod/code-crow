@@ -1,0 +1,82 @@
+section.page {
+  min-height: 100vh;
+  background-color: #FFF
+}
+
+h3.page-title {
+  margin: 0;
+  padding: 25px 0;
+  font-size: 22px
+}
+
+mat-card.plan-info {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+mat-card.plan-info div.card-title {
+    margin: 0;
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+mat-card.plan-info div.card-body h5 {
+  font-size: 18px;
+}
+
+mat-card.plan-info div.card-body div span {
+  display: block;
+  font-size: 13px
+}
+
+div.features ul {
+  font-size: 12px;
+  list-style: none;
+  padding-left: 25px;
+}
+
+div.features ul li::before {
+  content: "\2022"; 
+  color: #2980b9;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em; 
+  margin-left: -1em
+}
+
+mat-card.discount-card {
+  background-color: #F9F9F9;
+  color: #2980b9;
+  margin: 20px 0;
+  padding: 10px 0;
+}
+
+div.payment-methods ul {
+  padding: 0; list-style: none; margin: 15px 0;
+}
+
+div.payment-methods ul li {
+  padding: 5px 0; cursor: pointer; transition: 0.1s all ease-in-out;
+  border: 1px solid #FFF;
+  border-radius: 6px;
+}
+
+div.payment-methods ul li:hover {
+  background-color: #F0F0F0;
+  border: 1px solid #2980b9;
+}
+
+div.payment-methods ul li.selected {
+  background-color: #FAFAFA;
+  border: 1px solid #2980b9;
+}
+
+div.payment-methods ul li img {
+  float: left; width: 10%; position: relative; top: -5px; margin-right: 5px
+}
+
+div.payment-methods ul li span {
+  float: left; font-size: 14px
+}

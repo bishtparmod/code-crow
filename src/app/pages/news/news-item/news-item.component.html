@@ -1,0 +1,17 @@
+<mat-card class="app-newsitem" matRipple (click)="showNewsDialog()">
+  <table class="full-width">
+    <tbody>
+      <tr>
+        <th scope="row">
+          <mat-icon class="app-newsitem-thumbnail">{{userNews.news.thumbnail}}</mat-icon>
+        </th>
+        <td class="list-group-item-heading app-newsitem-text" style='position: relative;'>
+          <span class="app-newsitem-title"> {{userNews.news.title}} </span>
+          <span class="unseen" *ngIf='!userNews.isSeen'></span>
+          <span class="app-newsitem-detail"> {{userNews.news.detail}} </span>
+          <span class="app-newsitem-createdAt"> {{userNews.createdAt | date:"MMM dd, yyyy"}} </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</mat-card>

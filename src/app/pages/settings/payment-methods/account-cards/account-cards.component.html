@@ -1,0 +1,36 @@
+<mat-card class='plan-info'>
+  <div class="card-title row">
+    <div class="col-6">Card Number</div>
+    <div class="col-3">EXP</div>
+    <div class="col-3">Actions</div>
+  </div>
+  <div class="card-body" *ngIf='loadingSources'>
+    <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+  </div>
+  <div class="card-body" *ngIf='!loadingSources && !sources.length'>
+    <div style='margin-top: 1rem' class="alert alert-info">You don't any registered payment method.</div>
+  </div>
+  <div class="card-body" *ngIf='!loadingSources && sources.length'>
+    <div class="row" style='padding: 5px 0' *ngFor='let source of sources; let i = index'>
+      <div class="col-6">
+        <img style='width: 5%' [src]="'../../../../assets/cc/' + source.brand + '.png'" [alt]="source.brand">
+        <span>**** **** **** {{source.last4}}</span>
+      </div>
+      <div class="col-3">
+        <span>{{source.exp_month}}/{{source.exp_year}}</span>
+      </div>
+      <div class="col-3" *ngIf='!source.loading'>
+        <button style='border: 1px solid #e74c3c; color: #e74c3c; margin-right: 15px' (click)='deletePaymentMethod(i)'
+          mat-button>Delete</button>
+        <button style='border: 1px solid #2ecc71; color: #2ecc71' *ngIf='customer.default_source != source.id'
+          (click)='makeDefault(source)' mat-button>Set Default</button>
+      </div>
+      <div class="col-3" *ngIf='source.loading'>
+        <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class='text-center' *ngIf='!loadingSources'>
+    <button mat-button (click)='openDialog()'>Add Payment Method</button>
+  </div>
+</mat-card>

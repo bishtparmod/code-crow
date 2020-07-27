@@ -1,0 +1,76 @@
+<div class="app-videos-content-holder">
+  <div class="md-form app-video-search-bar sticky row">
+    <input type="search" class='col-6' [(ngModel)]="searchTitle" placeholder="Search videos">
+    <button mat-button (click)='searchVideos()' class='button'>
+      <mat-icon>search</mat-icon>
+      <span>Search</span>
+    </button>
+
+    <input type="file" #fileInput (change)='uploadVideo($event)' accept="video/*" class='hide'>
+    <div class="row">
+      <mat-card class='app-videos-buttons-container'>
+        <button mat-button class="half text-center" (click)="selectVideo()" mdbWavesEffect>
+          <div class="row justify-content-center">
+            <h5>
+              <mat-icon>cloud_upload</mat-icon>
+            </h5>
+          </div>
+          <div class="row justify-content-center">
+            <h6>
+              <span>Upload Video</span>
+            </h6>
+          </div>
+        </button>
+
+        <button mat-button class="half spererator text-center" (click)='navigateToCreatorSpace()' mdbWavesEffect>
+          <div class="row justify-content-center">
+            <h5>
+              <mat-icon>videocam</mat-icon>
+            </h5>
+          </div>
+          <div class="row justify-content-center">
+            <h6>
+              <span>Creator Space</span>
+            </h6>
+          </div>
+        </button>
+      </mat-card>
+    </div>
+
+    <div class="clearfix"></div>
+    <div>
+      <video class='hide' #videoPreview [src]='videoURL'></video>
+      <canvas class='hide' #videothumbnail></canvas>
+      <mat-card class="app-videos-upload-progress" *ngIf='progress'>
+        <div class="upload-progress" *ngIf='progress'>
+          <div class="title">
+            Uploading <strong>{{file.name}}</strong> - <i>{{progress}}%</i>
+          </div>
+          <mat-progress-bar color="primary" mode="buffer" [value]="progress" bufferValue="0">
+          </mat-progress-bar>
+        </div>
+        <div class="alert alert-success" *ngIf='videoUploaded'>
+          Video has been uploaded successfully.
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="app-video-list-item custom-scroll" (scroll)="onScroll($event)">
+    <div *ngIf='videoService.isLoadingVideos'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+    <div *ngIf='!videoService.isLoadingVideos && !searchedVideos.length'>
+      <div *ngFor="let item of videos.videos">
+        <app-video-item [video]="item">
+        </app-video-item>
+      </div>
+    </div>
+    <div *ngIf='searchedVideos.length'>
+      <div *ngFor="let item of searchedVideos">
+        <app-video-item [video]="item">
+        </app-video-item>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<mat-card style='overflow: visible;'>
+  <div class="card-title">Announcements</div>
+  <div class="card-body">
+    <div>
+      <!-- <div class="row background-image" [style.background-image]='defaultBGURL'>
+        <div class="overlay" (click)='selectBackground()'></div>
+        <input type="file" #fileInput (change)='changeBackground($event)' style="visibility: hidden;">
+      </div> -->
+      <div class='row'>
+        <mat-form-field class='col-3'>
+          <input type="text" matInput placeholder="Title" [(ngModel)]='title' required>
+        </mat-form-field>
+        <mat-form-field class='col-3'>
+          <mat-label>Type</mat-label>
+          <mat-select required [(ngModel)]='thumbnail'>
+            <mat-option value="update">Update</mat-option>
+            <mat-option value="extension">Extension</mat-option>
+            <mat-option value="warning">Warning</mat-option>
+            <mat-option value="new_releases">New Release</mat-option>
+            <mat-option value="report">Report</mat-option>
+            <mat-option value="priority_high">High Priority</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class='col-6'>
+          <input type="text" matInput placeholder="Message" [(ngModel)]='message' required>
+        </mat-form-field>
+      </div>
+    </div>
+    <ckeditor [(ngModel)]="body" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
+      debounce="500">
+    </ckeditor>
+    <div class="text-center" style='margin-top: 15px;' *ngIf='!isLoading'>
+      <button mat-button (click)='createAnnouncment()'>Announce</button>
+    </div>
+    <div *ngIf='isLoading'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+  </div>
+</mat-card>

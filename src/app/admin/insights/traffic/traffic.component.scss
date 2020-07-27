@@ -1,0 +1,65 @@
+mat-card {
+  margin-top: 25px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.info,
+div.graph {
+  padding: 16px
+}
+
+div.info {
+  margin-bottom: 10px
+}
+
+span.title {
+  display: block;
+  font-weight: bold;
+  font-size: 18px
+}
+
+span.date {
+  color: #666;
+  font-size: 12px
+}
+
+div.rates {
+  padding: 15px 16px;
+  background-color: #F0F3F5;
+  border-top: 1px solid #AAA;
+}
+
+div.row-info {
+  text-align: center
+}
+
+span.info-title,
+span.info-number {
+  display: block
+}
+
+span.info-title {
+  font-size: 13px
+}
+
+span.info-number {
+  font-weight: bold;
+  font-size: 14px
+}
+
+div.bar {
+  background-color: #AAA;
+  border-radius: 6px;
+  height: 5px;
+  width: 100%;
+  position: relative;
+}
+
+div.percentage {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 40%;
+  border-radius: 6px;
+  background-color: #0FF645;
+}

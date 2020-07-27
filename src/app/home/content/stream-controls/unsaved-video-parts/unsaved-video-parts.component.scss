@@ -1,0 +1,14 @@
+mat-card.bar {
+  padding: 0;
+  display: flex;
+}
+
+div.back-button {
+  flex: 1
+}
+
+div.action-buttons {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,29 @@
+mat-card {
+  margin-top: 25px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.card-title {
+  font-size: 14px;
+  padding: 5px 15px;
+  background-color: #f0f3f5;
+  color: #333;
+}
+
+div.section-options mat-icon {
+  cursor: pointer;
+  color: #333;
+}
+
+.app-site-settings-maintenance-content {
+  margin-left: 10px;
+}
+
+.app-site-settings-maintenance-toggle {
+  margin-bottom: 10px;
+}
+
+.app-site-settings-maintenance-input {
+  width: 100%;
+}

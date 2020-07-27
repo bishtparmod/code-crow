@@ -1,0 +1,48 @@
+<mat-card>
+  <div class='info'>
+    <span class='title'>Traffic</span>
+    <span class='date'>July 2019</span>
+  </div>
+  <div class='graph' style="display: block;">
+    <canvas baseChart height="250px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+      [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+  </div>
+  <div class="rates row">
+    <div class="col-3">
+      <div class="row-info">
+        <span class="info-title">Visits</span>
+        <span class="info-number">16,356 Users (60%)</span>
+      </div>
+      <div class="bar">
+        <div class="percentage"></div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row-info">
+        <span class="info-title">Unique</span>
+        <span class="info-number">10,626 Users (43%)</span>
+      </div>
+      <div class="bar">
+        <div class="percentage"></div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row-info">
+        <span class="info-title">New Users</span>
+        <span class="info-number">1356 Users (12%)</span>
+      </div>
+      <div class="bar">
+        <div class="percentage"></div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="row-info">
+        <span class="info-title">Page Views</span>
+        <span class="info-number">36,654 users (76%)</span>
+      </div>
+      <div class="bar">
+        <div class="percentage"></div>
+      </div>
+    </div>
+  </div>
+</mat-card>

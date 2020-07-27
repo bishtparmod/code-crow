@@ -1,0 +1,75 @@
+<mat-card>
+  <div class="card-title" *ngIf='!video'>All Videos</div>
+
+  <div class="card-title" style="padding-bottom: 0" *ngIf='video'>
+    <mat-icon style='cursor: pointer;' (click)='toggleView()'>keyboard_arrow_left</mat-icon>
+    <span style="position: relative;top: -6px;left: 10px;"><strong>{{video.stream.title}}</strong> Statistics</span>
+  </div>
+
+  <div class="card-body" *ngIf='video'>
+    <div class='graph' style="display: block;">
+      <canvas baseChart height="250px" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+        [chartType]="lineChartType"></canvas>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf='!video'>
+    <mat-form-field style="width: 100%">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" style="width: 100%" matSort matSortActive="createdAt" matSortDirection="asc" matSortDisableClear>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.stream.title}} </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Created At </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'short'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="views">
+        <th mat-header-cell *matHeaderCellDef> Views </th>
+        <td mat-cell *matCellDef="let element"> {{element.totalViews}} </td>
+      </ng-container>
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell *matHeaderCellDef> Rating </th>
+        <td mat-cell *matCellDef="let element"> {{element.totalRate}}% </td>
+      </ng-container>
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef> Duration </th>
+        <td mat-cell *matCellDef="let element"> {{element.stream.duration}} (s) </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)='deleteVideo(element._id)'>
+            <mat-icon style='color: #e74c3c'>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Public </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]='element.status' (change)='activate($event, element._id)'></mat-slide-toggle>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Statistics </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)='showStatistics(element)'>
+            <mat-icon>show_chart</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+   
+  </div>
+  <mat-paginator 
+  (page)="changePage($event)" 
+  [pageIndex]="pageNumber" 
+  [length]="totalCount" 
+  [pageSize]="pageLimit" 
+  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</mat-card>

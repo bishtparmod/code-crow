@@ -1,0 +1,24 @@
+<div class="padding-bottom" *ngIf='showingChannels'>
+  <div class="md-form app-channel-search-bar sticky">
+    <input type="search" [(ngModel)]="searchTitle" (keyup)="searchChannels()" placeholder="Search channels">
+  </div>
+  <div class="app-channel-list-item">
+    <div *ngIf='chatService.isGettingChannels'>
+      <mat-spinner style="margin:0 auto;" mode="indeterminate" diameter="30"></mat-spinner>
+    </div>
+    <div *ngIf='!chatService.isGettingChannels'>
+      <div *ngIf='searchTitle'>
+        <div *ngFor="let item of chatService.allChannels | filter: searchTitle">
+          <app-channel-item [channel]="item">
+          </app-channel-item>
+        </div>
+      </div>
+      <div *ngIf='!searchTitle'>
+        <div *ngFor="let item of chatService.channels">
+          <app-channel-item [channel]="item">
+          </app-channel-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

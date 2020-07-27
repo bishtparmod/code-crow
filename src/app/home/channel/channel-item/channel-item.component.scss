@@ -1,0 +1,76 @@
+.app-channelitem{
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    cursor: pointer;
+    background-color: #181b29;
+}
+
+.app-channelitem-title{
+    float: left;
+    width: 100%;
+    height: 30px;
+    color: aquamarine;
+}
+
+.app-channelitem-detail{
+    float: left;
+    width: 100%;
+    height: 32px;
+    align-self: center;
+    color: #FAEBD7;
+}
+
+.app-channelitem-description{
+    float: left;
+    width: 100%;
+    height: 32px;
+    align-self: center;
+    color: #FAEBD7;
+}
+
+.app-channelitem-avatar{
+    float: left;
+    width: 27px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+    top: -2px
+}
+
+.app-channelitem-name{
+    position: relative;
+    float: left;
+    height: 32px;
+    align-content: center;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    top: 2px;
+}
+
+.app-channelitem-name-padding { 
+    padding-left: 5px;
+}
+
+.app-channelitem-name-margin-top { 
+    margin-top: 10px;
+}
+
+.selected {
+    border: 1px solid #4285F4;
+    box-shadow: 0 0 0px 0px #4285F4;
+}
+
+span.online,
+span.offline {
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    width: 15px;
+    height: 15px;
+    background-color: green;
+    border-radius: 50%;
+}
+
+span.offline { background-color: red; }

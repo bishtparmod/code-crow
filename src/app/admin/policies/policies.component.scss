@@ -1,0 +1,76 @@
+.uploadfilecontainer {
+  background-image: url("../../../assets/cloud_upload.svg");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 200px;
+  width: 80%;
+  margin: 20px auto;
+  border: 2px dashed #1c8adb;
+  border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec !important;
+  opacity: 0.8;
+}
+
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  padding: 5px;
+  color: #1c8adb;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.files-list .delete-file img {
+  width: 30px;
+}
+
+mat-card {
+  margin-top: 25px;
+  padding: 0;
+  overflow: hidden;
+}
+
+div.card-title {
+  font-size: 14px;
+  padding: 5px 15px;
+  background-color: #f0f3f5;
+  color: #333;
+}
+
+div.title h3 {
+  font-size: 23px;
+}
+
+div.title div.user mat-icon {
+  font-size: 18px;
+}
+
+div.title div.user span {
+  font-size: 14px;
+  position: relative;
+  top: -4px;
+  color: #555;
+}
+
+div.body div.row div mat-icon {
+  font-size: 22px;
+}
+
+.app-policies-send-button {
+  left: 20px;
+  bottom: 20px;
+}

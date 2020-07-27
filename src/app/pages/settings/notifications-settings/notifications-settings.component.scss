@@ -1,0 +1,29 @@
+h3.page-title {
+  margin: 0;
+  padding: 25px 0;
+  font-size: 22px;
+  text-align: center
+}
+
+mat-card.plan-info {
+  padding: 0;
+  margin-bottom: 30px
+}
+
+mat-card.plan-info div.card-title {
+    margin: 0;
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+mat-card.plan-info div.card-body div span {
+  font-size: 15px;
+  margin-left: 10px;
+  font-weight: 500
+}
+
+mat-checkbox {
+  display: block
+}
